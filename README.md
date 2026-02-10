@@ -26,7 +26,14 @@ Un document PDF d'analyse détaillant :
 - Les sources de données disponibles
 - La méthodologie de détection
 
-### 2. Application web interactive
+📄 **[Télécharger l'analyse PDF](Analyse_Data_Centers_France.pdf)**
+
+### 2. Données Enedis
+Échantillon des données utilisées (filtrées NAF 63, ≥10 GWh) :
+
+📊 **[Voir les données CSV](donnees_enedis.csv)**
+
+### 3. Application web interactive
 Une interface de visualisation permettant de :
 - **Voir la carte nationale** avec les data centers regroupés par département
 - **Explorer par département** en cliquant sur les marqueurs

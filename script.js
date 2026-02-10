@@ -11,7 +11,11 @@ let departmentLayer;
 let datacenterLayer;
 let currentDepartments = [];
 
-
+// Mapping NAF codes to labels
+const NAF_LABELS = {
+    "61": "Télécommunications",
+    "63": "Data Center"
+};
 
 // ================= INIT MAP =================
 const map = L.map('map', {
@@ -24,13 +28,11 @@ L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 L.tileLayer(
     'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; Enedis Open Data (Data Fair)', maxZoom: 19 }
+    { attribution: '© Enedis Open Data (Data Fair)', maxZoom: 19 }
 ).addTo(map);
 
-// ✅ INITIALISATION DES LAYERS ICI
 departmentLayer = L.layerGroup().addTo(map);
 datacenterLayer = L.layerGroup();
-
 
 // ================= ICON =================
 const dcIcon = L.icon({
@@ -47,10 +49,8 @@ async function loadFranceMask() {
             'https://raw.githubusercontent.com/johan/world.geo.json/master/countries/FRA.geo.json'
         );
         if (!res.ok) return;
-
         const data = await res.json();
         const geometry = data.features ? data.features[0] : data;
-
         L.geoJSON(geometry, {
             style: { color: "#0055FF", weight: 2, fillOpacity: 0 }
         }).addTo(map);
@@ -59,73 +59,40 @@ async function loadFranceMask() {
     }
 }
 
-// ================= API ENEDIS =================
-async function fetchEnedisOpenData() {
-    const baseUrl =
-        "https://opendata.enedis.fr/data-fair/api/v1/datasets/consommation-annuelle-entreprise-par-adresse/lines";
-
-    const params = new URLSearchParams({
-        format: "json",
-        size: "10000",
-        code_secteur_naf2_eq: "63",
-        consommation_annuelle_totale_de_ladresse_mwh_gte: "9000"
-    });
-
-    const url = `${baseUrl}?${params.toString()}`;
-    const proxy = `https://corsproxy.io/?${encodeURIComponent(url)}`;
-
-
-    const response = await fetch(proxy);
-    if (!response.ok) throw new Error("Erreur API Enedis");
-
-    const data = await response.json();
-    const records = Array.isArray(data) ? data : (data.results || []);
-
-    return await processApiResults(records);
-
-}
-
-// ================= TRAITEMENT DONNÉES =================
-async function processApiResults(records) {
-    const points = {};
-
-    for (const rec of records) {
-        if (!rec.adresse) continue;
-
-        const fullAddress =
-            `${rec.adresse} ${rec.code_postal || ""} ${rec.commune || ""}`;
-
-        if (!points[fullAddress]) {
-            const coords = await geocodeAddress(fullAddress);
-            if (!coords) continue;
-
-            points[fullAddress] = {
-                nom: rec.adresse,
-                adresse_api: fullAddress,
-                lat: coords.lat,
-                lng: coords.lng,
-                departement: coords.dept,
-                historique: [],
-                source: "Enedis Officiel"
-            };
-        }
-
-        const conso =
-            rec.consommation_annuelle_totale_de_ladresse_mwh || 0;
-
-        points[fullAddress].historique.push({
-            annee: parseInt(rec.annee),
-            mwh: conso
-        });
+// ================= CHARGEMENT DES DONNÉES =================
+async function loadDataFromJSON() {
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) throw new Error("Erreur lors du chargement de data.json");
+        
+        const data = await response.json();
+        return data.departements;
+        
+    } catch (error) {
+        console.error("Erreur:", error);
+        throw new Error("Fichier data.json introuvable. Veuillez exécuter 'python etl.py' d'abord.");
     }
-
-    Object.values(points).forEach(p =>
-        p.historique.sort((a, b) => b.annee - a.annee)
-    );
-
-    return Object.values(points);
 }
 
+// ================= TRANSFORMATION DES DONNÉES =================
+function transformDepartments(departements) {
+    return departements.map(dept => ({
+        departement: dept.code,
+        lat: dept.lat,
+        lng: dept.lng,
+        totalMwh: dept.total_mwh,
+        dcs: dept.datacenters.map(dc => ({
+            nom: dc.nom,
+            adresse_api: dc.adresse_complete,
+            lat: dc.lat,
+            lng: dc.lng,
+            departement: dc.departement,
+            code_naf: dc.code_naf,
+            historique: dc.historique,
+            source: "Enedis Open Data"
+        }))
+    }));
+}
 
 // ================= UI =================
 function updateLoadingState(msg) {
@@ -135,11 +102,9 @@ function updateLoadingState(msg) {
 
 function updateGlobalStats(data) {
     document.getElementById('dc-count').innerText = data.length;
-
     const total = data.reduce((acc, d) => {
         return acc + (d.historique[0]?.mwh || 0);
     }, 0);
-
     document.getElementById('total-conso').innerText =
         (total / 1000).toFixed(1) + " GWh";
 }
@@ -148,56 +113,49 @@ function updateGlobalStats(data) {
 function renderDepartmentMarkers(departments) {
     departmentLayer.clearLayers();
     datacenterLayer.clearLayers();
-
     departments.forEach(dep => {
         const marker = L.marker([dep.lat, dep.lng], { icon: dcIcon });
-
         marker.bindTooltip(
             `<strong>Département ${dep.departement}</strong><br>
              ${dep.dcs.length} data centers<br>
              ${(dep.totalMwh / 1000).toFixed(1)} GWh`,
             { direction: 'top' }
         );
-
         marker.on('click', () => {
             zoomToDepartment(dep);
         });
-
         marker.addTo(departmentLayer);
     });
 }
-
-
 
 // ================= SIDEBAR =================
 function showSidebar(dc) {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.remove('hidden');
-
     document.getElementById('dc-name').innerText = dc.nom;
     document.getElementById('dc-address').innerText = dc.adresse_api;
     document.getElementById('dc-operator').innerText = dc.source;
-
+    
+    // Afficher le badge NAF avec le secteur
+    const nafLabel = NAF_LABELS[dc.code_naf] || dc.code_naf;
+    document.getElementById('naf-badge').innerText = `NAF ${dc.code_naf} - ${nafLabel}`;
+    
     const tbody = document.getElementById('history-body');
     tbody.innerHTML = '';
-
+    
     if (dc.historique.length === 0) {
         document.getElementById('dc-conso').innerText = "N/A";
         document.getElementById('conso-bar').style.width = "0%";
-        tbody.innerHTML =
-            `<tr><td colspan="3" style="text-align:center;color:#999">
-                Aucune donnée disponible
-            </td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#999">Aucune donnée disponible</td></tr>`;
         return;
     }
-
+    
     const last = dc.historique[0];
     document.getElementById('dc-conso').innerText =
         (last.mwh / 1000).toFixed(1) + " GWh";
-
     document.getElementById('conso-bar').style.width =
         Math.min((last.mwh / 150000) * 100, 100) + "%";
-
+    
     dc.historique.forEach((rec, i) => {
         let trend = '-';
         if (i < dc.historique.length - 1) {
@@ -206,7 +164,6 @@ function showSidebar(dc) {
             const pct = ((diff / prev) * 100).toFixed(1);
             trend = diff > 0 ? `+${pct}% ↗` : diff < 0 ? `${pct}% ↘` : '-';
         }
-
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><strong>${rec.annee}</strong></td>
@@ -225,81 +182,44 @@ document.getElementById('close-sidebar')
 // ================= INIT =================
 async function initDashboard() {
     loadFranceMask();
-    updateLoadingState("Chargement des données Enedis...");
-
+    updateLoadingState("Chargement des données...");
     try {
-        const data = await fetchEnedisOpenData();
-        currentDepartments = groupByDepartment(data);
-
+        const departements = await loadDataFromJSON();
+        currentDepartments = transformDepartments(departements);
         renderDepartmentMarkers(currentDepartments);
-        updateGlobalStats(data);
+        
+        const allDCs = currentDepartments.flatMap(d => d.dcs);
+        updateGlobalStats(allDCs);
+        
     } catch (e) {
         console.error(e);
-        updateLoadingState("Erreur de chargement");
+        updateLoadingState("Erreur");
+        alert(e.message);
     }
 }
 
-
-
-async function geocodeAddress(address) {
-    const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(address)}&limit=1`;
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.features && data.features.length > 0) {
-        const f = data.features[0];
-        const [lng, lat] = f.geometry.coordinates;
-        const dept = f.properties.context.split(',')[0]; // ex: "93"
-
-        return { lat, lng, dept };
-    }
-    return null;
-}
-
-function groupByDepartment(data) {
-    const depts = {};
-
-    data.forEach(dc => {
-        if (!depts[dc.departement]) {
-            depts[dc.departement] = {
-                departement: dc.departement,
-                lat: dc.lat,
-                lng: dc.lng,
-                dcs: [],
-                totalMwh: 0
-            };
-        }
-
-        depts[dc.departement].dcs.push(dc);
-        depts[dc.departement].totalMwh += dc.historique[0]?.mwh || 0;
-    });
-
-    return Object.values(depts);
-}
-
+// ================= DEPARTMENT SIDEBAR - CORRECTION ICI =================
 function showDepartmentSidebar(dep) {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.remove('hidden');
-
-    document.getElementById('dc-name').innerText =
-        `Département ${dep.departement}`;
-
-    document.getElementById('dc-address').innerText =
-        `${dep.dcs.length} data centers`;
-
-    document.getElementById('dc-operator').innerText =
-        (dep.totalMwh / 1000).toFixed(1) + " GWh";
-
+    
+    document.getElementById('dc-name').innerText = `Département ${dep.departement}`;
+    document.getElementById('dc-address').innerText = `${dep.dcs.length} data centers`;
+    document.getElementById('dc-operator').innerText = `${(dep.totalMwh / 1000).toFixed(1)} GWh`;
+    document.getElementById('naf-badge').innerText = "NAF 61 & 63";
+    
     const tbody = document.getElementById('history-body');
     tbody.innerHTML = '';
-
+    
+    // CORRECTION: Afficher la liste des DCs avec le bon format de colonnes
     dep.dcs.forEach(dc => {
+        const nafLabel = NAF_LABELS[dc.code_naf] || dc.code_naf;
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td colspan="3" style="cursor:pointer">
                 <strong>${dc.nom}</strong><br>
-                <span style="font-size:0.75rem;color:#888">
-                    ${(dc.historique[0]?.mwh || 0) / 1000} GWh
+                <span style="font-size:0.85rem;color:#888">
+                    ${(dc.historique[0]?.mwh || 0).toLocaleString('fr-FR')} MWh • ${nafLabel}
                 </span>
             </td>
         `;
@@ -311,14 +231,11 @@ function showDepartmentSidebar(dep) {
 function showBackButton() {
     const btn = document.getElementById('back-btn');
     btn.classList.remove('hidden');
-
     btn.onclick = () => {
         datacenterLayer.clearLayers();
         map.removeLayer(datacenterLayer);
-
         renderDepartmentMarkers(currentDepartments);
         map.setView(mapConfig.center, mapConfig.zoom);
-
         btn.classList.add('hidden');
         document.getElementById('sidebar').classList.add('hidden');
     };
@@ -328,35 +245,27 @@ function zoomToDepartment(dep) {
     departmentLayer.clearLayers();
     datacenterLayer.clearLayers();
     datacenterLayer.addTo(map);
-
     const bounds = [];
-
     dep.dcs.forEach(dc => {
         const marker = L.marker([dc.lat, dc.lng], { icon: dcIcon });
-
         marker.on('click', () => showSidebar(dc));
         marker.addTo(datacenterLayer);
-
         bounds.push([dc.lat, dc.lng]);
     });
-
     if (bounds.length) {
         map.fitBounds(bounds, {
             padding: [40, 40],
             animate: true
         });
     }
-
     showDepartmentSidebar(dep);
     showBackButton();
 }
-
 
 // ================= RANKING PANEL =================
 function showRankingPanel() {
     const panel = document.getElementById('ranking-panel');
     panel.classList.remove('hidden');
-    
     renderRanking('conso');
 }
 
@@ -376,15 +285,15 @@ function renderRanking(sortBy = 'conso') {
         const item = document.createElement('div');
         item.className = 'ranking-item';
         item.innerHTML = `
-            <div class="rank">#${index + 1}</div>
-            <div class="dept-info">
+            <div class="rank-number">#${index + 1}</div>
+            <div class="rank-info">
                 <div class="dept-name">Département ${dep.departement}</div>
                 <div class="dept-stats">
                     ${dep.dcs.length} DC • ${(dep.totalMwh / 1000).toFixed(1)} GWh
                 </div>
-            </div>
-            <div class="dept-bar-container">
-                <div class="dept-bar" style="width: ${(dep.totalMwh / sorted[0].totalMwh * 100).toFixed(1)}%"></div>
+                <div class="rank-bar">
+                    <div class="rank-bar-fill" style="width: ${(dep.totalMwh / sorted[0].totalMwh * 100).toFixed(1)}%"></div>
+                </div>
             </div>
         `;
         
