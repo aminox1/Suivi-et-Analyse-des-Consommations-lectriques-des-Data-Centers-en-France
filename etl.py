@@ -20,7 +20,7 @@ API_GEOCODING = "https://api-adresse.data.gouv.fr/search/"
 OUTPUT_FILE = "data.json"
 
 # Filtres - MODIFICATION: Maintenant on gère plusieurs codes NAF
-CODES_NAF = ["61", "63"]  # Télécommunications (61) et Informatique (63)
+CODES_NAF = ["61", "62", "63"]  # Télécommunications (61) et Informatique (63)
 SEUIL_CONSO_MWH = 100
 GEOCODING_DELAY = 0.15
 
@@ -52,13 +52,20 @@ def log_step(step: int, title: str):
 def download_enedis_data() -> bool:
     """
     Télécharge les données depuis l'API Enedis Open Data
+    et géocode les adresses si latitude / longitude sont absentes.
+    Séparateur ;
     """
     log_info("Téléchargement depuis l'API Enedis Open Data...")
     log_info(f"(Données pour les NAF: {', '.join(CODES_NAF)})")
-    
-    # Télécharger pour chaque code NAF et combiner
-    all_data = []
-    
+
+    all_rows = []
+    fieldnames = None
+    geocode_cache = {}
+
+    total_to_geocode = 0
+    geocoded_count = 0
+    failed_count = 0
+
     for code_naf in CODES_NAF:
         log_info(f"Téléchargement NAF {code_naf}...")
         params = {
@@ -66,37 +73,92 @@ def download_enedis_data() -> bool:
             "refine": f"code_secteur_naf2:{code_naf}",
             "timezone": "UTC"
         }
-        
+
         try:
-            response = requests.get(API_ENEDIS_EXPORT, params=params, timeout=180, stream=True)
+            response = requests.get(API_ENEDIS_EXPORT, params=params, timeout=180)
             response.raise_for_status()
-            
-            # Lire le contenu
-            content = response.content.decode('utf-8')
-            all_data.append(content)
-            
+
+            content = response.content.decode('utf-8').splitlines()
+            reader = csv.DictReader(content, delimiter=';')
+
+            if fieldnames is None:
+                fieldnames = reader.fieldnames
+
+            # 🔎 Premier passage : compter combien à géocoder
+            rows = list(reader)
+            for row in rows:
+                if not row.get("latitude") or not row.get("longitude"):
+                    total_to_geocode += 1
+
+            log_info(f"{total_to_geocode} lignes nécessitent un géocodage")
+
+            # 🔁 Deuxième passage : traitement réel
+            for index, row in enumerate(rows, start=1):
+
+                adresse = row.get("adresse", "").strip()
+                commune = row.get("nom_commune", "").strip()
+                code_commune = row.get("code_commune", "")
+                code_postal = code_commune[:2] + "000" if code_commune else ""
+
+                lat = row.get("latitude")
+                lng = row.get("longitude")
+
+                key = f"{adresse}|{code_postal}|{commune}"
+
+                if not lat or not lng:
+
+                    if key in geocode_cache:
+                        result = geocode_cache[key]
+                    else:
+                        result = geocode_address(adresse, code_postal, commune)
+                        geocode_cache[key] = result
+                        time.sleep(GEOCODING_DELAY)
+
+                    if result:
+                        row["latitude"] = result["lat"]
+                        row["longitude"] = result["lng"]
+                        geocoded_count += 1
+                    else:
+                        row["latitude"] = ""
+                        row["longitude"] = ""
+                        failed_count += 1
+
+                    # 📊 Log progression toutes les 50 lignes
+                    if geocoded_count % 50 == 0:
+                        log_info(
+                            f"Géocodage en cours : {geocoded_count}/{total_to_geocode} "
+                            f"({(geocoded_count/total_to_geocode)*100:.1f}%)"
+                        )
+
+                all_rows.append(row)
+
             log_success(f"NAF {code_naf} téléchargé")
-            
+
         except Exception as e:
             log_error(f"Erreur téléchargement NAF {code_naf}: {e}")
             return False
-    
-    # Combiner les fichiers CSV (garder l'en-tête du premier uniquement)
-    if all_data:
-        combined = all_data[0]  # Premier fichier avec en-tête
-        for data in all_data[1:]:
-            # Sauter la première ligne (en-tête) pour les fichiers suivants
-            lines = data.split('\n')
-            combined += '\n'.join(lines[1:])
-        
-        with open(CSV_FILE, 'w', encoding='utf-8') as f:
-            f.write(combined)
-        
+
+    if all_rows:
+        if "latitude" not in fieldnames:
+            fieldnames += ["latitude", "longitude"]
+
+        with open(CSV_FILE, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=';')
+            writer.writeheader()
+            writer.writerows(all_rows)
+
         file_size = os.path.getsize(CSV_FILE) / (1024 * 1024)
-        log_success(f"CSV combiné sauvegardé ({file_size:.1f} MB)")
+
+        log_success("GÉOCODAGE TERMINÉ")
+        log_info(f"Succès : {geocoded_count}")
+        log_info(f"Échecs : {failed_count}")
+        log_success(f"CSV enrichi sauvegardé ({file_size:.1f} MB)")
+
         return True
-    
+
     return False
+
+
 
 # ================= EXTRACT =================
 def extract_enedis_data() -> List[Dict]:
@@ -109,52 +171,34 @@ def extract_enedis_data() -> List[Dict]:
     else:
         file_date = datetime.fromtimestamp(os.path.getmtime(CSV_FILE))
         log_info(f"Fichier existant trouvé (modifié le {file_date.strftime('%d/%m/%Y %H:%M')})")
-        log_info("Pour retélécharger, supprimez le fichier 'donnees_enedis_complet.csv'")
     
     log_info(f"Lecture du fichier CSV...")
     records = []
     
     try:
-        success = False
-        for encoding in ['utf-8', 'latin-1', 'cp1252', 'iso-8859-1']:
-            for delimiter in [';', ',']:
-                try:
-                    with open(CSV_FILE, 'r', encoding=encoding) as f:
-                        reader = csv.DictReader(f, delimiter=delimiter)
-                        temp_records = []
-                        for row in reader:
-                            clean_row = {k.lstrip('\ufeff'): v for k, v in row.items()}
-                            temp_records.append(clean_row)
-                        
-                        if temp_records and 'code_secteur_naf2' in temp_records[0]:
-                            records = temp_records
-                            log_success(f"{len(records)} lignes lues (encodage: {encoding})")
-                            success = True
-                            break
-                except:
+        with open(CSV_FILE, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f, delimiter=';')
+            for row in reader:
+                if row is None:
                     continue
-            if success:
-                break
-        
-        if not records:
-            raise Exception("Format CSV non reconnu")
-        
+                clean_row = { (k or '').lstrip('\ufeff') : (v or '') for k, v in row.items() }
+                # Vérifier si latitude et longitude existent
+                clean_row['latitude'] = clean_row.get('latitude', '')
+                clean_row['longitude'] = clean_row.get('longitude', '')
+                records.append(clean_row)
+
+        log_success(f"{len(records)} lignes lues")
+    
     except Exception as e:
         log_error(f"Erreur lecture : {e}")
         return []
     
     # Filtrage par NAF
     log_info(f"Filtrage : NAF {', '.join(CODES_NAF)}")
-    filtered_records = []
-    
-    for record in records:
-        naf = record.get('code_secteur_naf2', '')
-        
-        if naf in CODES_NAF:
-            filtered_records.append(record)
-    
+    filtered_records = [r for r in records if r.get('code_secteur_naf2', '') in CODES_NAF]
     log_success(f"{len(filtered_records)} enregistrements NAF {', '.join(CODES_NAF)}")
     return filtered_records
+
 
 # ================= GEOCODING =================
 def geocode_address(address: str, code_postal: str = "", commune: str = "") -> Optional[Dict]:
@@ -181,31 +225,48 @@ def geocode_address(address: str, code_postal: str = "", commune: str = "") -> O
     except:
         return None
 
+
+import math
+
+def distance_m(lat1, lon1, lat2, lon2):
+    """Distance en mètres entre deux points GPS"""
+    R = 6371000  # rayon Terre en mètres
+
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlambda = math.radians(lon2 - lon1)
+
+    a = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
+    )
+
+    return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+
 # ================= TRANSFORM =================
 def transform_data(records: List[Dict]) -> Dict:
     log_step(2, "TRANSFORMATION DES DONNÉES")
-    
+
     addresses_map = {}
-    
+
+    # ==========================================================
+    # 1️⃣ REGROUPEMENT PAR ADRESSE
+    # ==========================================================
     log_info("Regroupement par adresse...")
-    debug_count = 0
     for record in records:
-        adresse = record.get('adresse', '')
+        adresse = record.get('adresse', '').strip()
         if not adresse:
             continue
-        
-        if debug_count == 0:
-            log_info(f"DEBUG - Premier enregistrement: {list(record.keys())[:5]}")
-            log_info(f"DEBUG - adresse={adresse}, annee={record.get('annee')}, conso={record.get('consommation_annuelle_totale_de_ladresse_mwh')}")
-            debug_count += 1
-        
-        code_dept = record.get('code_departement', '')
-        commune = record.get('nom_commune', '')
+
+        commune = record.get('nom_commune', '').strip()
         code_commune = record.get('code_commune', '')
+        code_dept = record.get('code_departement', '')
         code_naf = record.get('code_secteur_naf2', '')
-        
+
         full_key = f"{adresse}|{code_commune}|{commune}"
-        
+
         if full_key not in addresses_map:
             addresses_map[full_key] = {
                 "adresse": adresse,
@@ -213,100 +274,135 @@ def transform_data(records: List[Dict]) -> Dict:
                 "commune": commune,
                 "code_departement": code_dept,
                 "code_naf": code_naf,
-                "historique": []
+                "historique": [],
+                "lat": record.get('latitude'),
+                "lng": record.get('longitude')
             }
-        
-        annee_str = record.get('annee', '')
-        conso_str = record.get('consommation_annuelle_totale_de_ladresse_mwh', '0')
-        
+
         try:
-            annee = int(annee_str) if annee_str else 0
-            conso = float(conso_str.replace(',', '.').replace(' ', '')) if conso_str else 0
-            
-            if debug_count == 1:
-                log_info(f"DEBUG - Après conversion: annee={annee}, conso={conso}")
-                debug_count += 1
-            
-        except Exception as e:
-            if debug_count == 1:
-                log_error(f"DEBUG - Erreur conversion: {e}")
+            annee = int(record.get('annee', 0))
+            conso = float(
+                record.get('consommation_annuelle_totale_de_ladresse_mwh', '0')
+                .replace(',', '.')
+                .replace(' ', '')
+            )
+        except:
             continue
-        
+
         if annee and conso:
-            addresses_map[full_key]["historique"].append({"annee": annee, "mwh": conso})
-    
+            addresses_map[full_key]["historique"].append({
+                "annee": annee,
+                "mwh": conso
+            })
+
     log_success(f"{len(addresses_map)} adresses uniques")
-    
-    # Filtrer par consommation
+
+    # ==========================================================
+    # 2️⃣ FILTRAGE PAR CONSOMMATION
+    # ==========================================================
     log_info(f"Filtrage : CONSO ≥ {SEUIL_CONSO_MWH} MWh")
-    addresses_filtered = {}
-    for key, data in addresses_map.items():
-        if data['historique']:
-            max_conso = max(h['mwh'] for h in data['historique'])
-            if max_conso >= SEUIL_CONSO_MWH:
-                addresses_filtered[key] = data
-    
-    log_success(f"{len(addresses_filtered)} adresses avec conso ≥ {SEUIL_CONSO_MWH} MWh")
-    addresses_map = addresses_filtered
-    
-    log_info("Géocodage des adresses...")
+    addresses_map = {
+        k: v for k, v in addresses_map.items()
+        if v["historique"] and max(h["mwh"] for h in v["historique"]) >= SEUIL_CONSO_MWH
+    }
+    log_success(f"{len(addresses_map)} adresses après filtrage consommation")
+
+    # ==========================================================
+    # 3️⃣ CHARGEMENT CARTE (matching par coordonnée exacte)
+    # ==========================================================
+    log_info("Lecture de la carte des data centers...")
+
+    carte_coords = set()
+
+    try:
+        with open(
+            "carte_des_data_centers__des_projets_et_des_contestations_en_france.csv",
+            encoding="utf-8"
+        ) as f:
+            reader = csv.DictReader(f, delimiter=',')
+
+            for row in reader:
+                try:
+                    lat = round(float(row["Latitude"]), 4)
+                    lon = round(float(row["Longitude"]), 4)
+                    carte_coords.add((lat, lon))
+                except:
+                    continue
+
+        log_success(f"{len(carte_coords)} coordonnées chargées depuis la carte")
+
+    except Exception as e:
+        log_warning(f"Impossible de lire la carte: {e}")
+        carte_coords = set()
+
+
+    # ==========================================================
+    # 4️⃣ MATCH COORDONNÉES PAR PROXIMITÉ (≤ 50m)
+    # ==========================================================
+    log_info("Matching spatial (rayon 100m)...")
+
+    RAYON_MATCH_METRES = 100
+
     datacenters = []
-    geocoded_count = 0
-    failed_count = 0
-    
-    for i, (key, data) in enumerate(addresses_map.items(), 1):
-        print(f"\r  Géocodage {i}/{len(addresses_map)}...", end='', flush=True)
-        
-        dept_from_csv = data.get('code_departement', '')
-        
-        coords = geocode_address(data['adresse'], data['code_postal'], data['commune'])
-        time.sleep(GEOCODING_DELAY)
-        
-        if coords:
+    match_count = 0
+
+    for data in addresses_map.values():
+        try:
+            lat = float(data['lat'])
+            lng = float(data['lng'])
+        except:
+            continue
+
+        match_found = False
+
+        for lat_carte, lng_carte in carte_coords:
+            if distance_m(lat, lng, lat_carte, lng_carte) <= RAYON_MATCH_METRES:
+                match_found = True
+                break
+
+        if match_found:
+            match_count += 1
+
             data['historique'].sort(key=lambda x: x['annee'], reverse=True)
-            
-            dept_final = dept_from_csv if dept_from_csv else coords['dept']
-            
+            dept_final = data.get('code_departement') or "00"
+
             datacenters.append({
                 "nom": data['adresse'],
                 "adresse_complete": f"{data['adresse']}, {data['code_postal']} {data['commune']}",
-                "lat": coords['lat'],
-                "lng": coords['lng'],
+                "lat": round(lat, 6),
+                "lng": round(lng, 6),
                 "departement": dept_final,
                 "code_naf": data['code_naf'],
                 "historique": data['historique'],
-                "score_geocoding": coords['score']
+                "match_carte": True
             })
-            geocoded_count += 1
-        else:
-            if dept_from_csv and data['historique']:
-                log_warning(f"Géocodage échoué pour {data['adresse'][:30]}... - conservé avec dept {dept_from_csv}")
-            failed_count += 1
-    
-    print()
-    log_success(f"{geocoded_count} adresses géocodées")
-    if failed_count > 0:
-        log_warning(f"{failed_count} échecs de géocodage")
-    
-    log_info("Regroupement par département...")
+
+    log_success(f"{match_count} correspondances trouvées avec la carte")
+
+
+
+    # ==========================================================
+    # 5️⃣ REGROUPEMENT PAR DÉPARTEMENT
+    # ==========================================================
     departements_map = {}
-    
     for dc in datacenters:
         dept = dc['departement']
         if dept not in departements_map:
-            departements_map[dept] = {"code": dept, "datacenters": [], "total_mwh": 0, "count": 0}
-        
+            departements_map[dept] = {
+                "code": dept,
+                "datacenters": [],
+                "total_mwh": 0,
+                "count": 0
+            }
         departements_map[dept]["datacenters"].append(dc)
         departements_map[dept]["count"] += 1
-        
-        if dc['historique']:
-            departements_map[dept]["total_mwh"] += dc['historique'][0]['mwh']
-    
+        if dc["historique"]:
+            departements_map[dept]["total_mwh"] += dc["historique"][0]["mwh"]
+
     departements = []
     for dept_code, dept_data in departements_map.items():
-        avg_lat = sum(dc['lat'] for dc in dept_data['datacenters']) / len(dept_data['datacenters'])
-        avg_lng = sum(dc['lng'] for dc in dept_data['datacenters']) / len(dept_data['datacenters'])
-        
+        avg_lat = sum(dc["lat"] for dc in dept_data["datacenters"]) / len(dept_data["datacenters"])
+        avg_lng = sum(dc["lng"] for dc in dept_data["datacenters"]) / len(dept_data["datacenters"])
         departements.append({
             "code": dept_code,
             "lat": avg_lat,
@@ -315,13 +411,12 @@ def transform_data(records: List[Dict]) -> Dict:
             "count": dept_data["count"],
             "datacenters": dept_data["datacenters"]
         })
-    
-    departements.sort(key=lambda x: x['total_mwh'], reverse=True)
-    log_success(f"{len(departements)} départements")
-    
+
+    departements.sort(key=lambda x: x["total_mwh"], reverse=True)
+
     total_dc = len(datacenters)
-    total_mwh = sum(dept['total_mwh'] for dept in departements)
-    
+    total_mwh = sum(d["total_mwh"] for d in departements)
+
     return {
         "metadata": {
             "generated_at": datetime.now().isoformat(),
@@ -330,10 +425,103 @@ def transform_data(records: List[Dict]) -> Dict:
             "total_mwh": round(total_mwh, 2),
             "total_gwh": round(total_mwh / 1000, 2),
             "total_departements": len(departements),
-            "filters": {"codes_naf": CODES_NAF, "seuil_mwh": SEUIL_CONSO_MWH}
+            "filters": {
+                "codes_naf": CODES_NAF,
+                "seuil_mwh": SEUIL_CONSO_MWH
+            }
         },
         "departements": departements
     }
+
+# ================= enrich csv =================
+import sys
+
+def enrich_csv_with_geocode(csv_file: str) -> bool:
+    """
+    Vérifie si latitude / longitude sont vides dans le CSV et les complète via géocodage.
+    Réécrit le fichier CSV avec les nouvelles valeurs.
+    Affiche le nombre de lignes encore nulles.
+    """
+    if not os.path.exists(csv_file):
+        log_error(f"Fichier {csv_file} non trouvé")
+        return False
+
+    all_rows = []
+    geocode_cache = {}
+    total_rows = 0
+    updated_rows = 0
+
+    # 1️⃣ Lecture du CSV
+    with open(csv_file, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        fieldnames = reader.fieldnames
+
+        if "latitude" not in fieldnames:
+            fieldnames.append("latitude")
+        if "longitude" not in fieldnames:
+            fieldnames.append("longitude")
+
+        rows = list(reader)
+        total_rows = len(rows)
+
+    # 2️⃣ Parcours et enrichissement
+    for idx, row in enumerate(rows, start=1):
+        adresse = row.get("adresse", "").strip()
+        commune = row.get("nom_commune", "").strip()
+        code_commune = row.get("code_commune", "")
+        code_postal = code_commune[:2] + "000" if code_commune else ""
+
+        lat = row.get("latitude")
+        lng = row.get("longitude")
+
+        key = f"{adresse}|{code_postal}|{commune}"
+
+        if not lat or not lng:
+            # Vérifier cache
+            if key in geocode_cache:
+                result = geocode_cache[key]
+            else:
+                result = geocode_address(adresse, code_postal, commune)
+                geocode_cache[key] = result
+                time.sleep(GEOCODING_DELAY)
+
+            if result:
+                row["latitude"] = result["lat"]
+                row["longitude"] = result["lng"]
+                updated_rows += 1
+            else:
+                row["latitude"] = ""
+                row["longitude"] = ""
+
+        all_rows.append(row)
+
+        # Log dynamique
+        percent = (idx / total_rows) * 100
+        sys.stdout.write(
+            f"\rTraitement CSV : {idx}/{total_rows} ({percent:.1f}%) | mises à jour: {updated_rows}"
+        )
+        sys.stdout.flush()
+
+    print()  # retour à la ligne propre
+
+    # 3️⃣ Réécriture du CSV
+    with open(csv_file, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=';')
+        writer.writeheader()
+        writer.writerows(all_rows)
+
+    # 4️⃣ Compter les lignes encore nulles
+    remaining_nulls = sum(
+        1 for row in all_rows if not row.get("latitude") or not row.get("longitude")
+    )
+
+    log_success(f"CSV '{csv_file}' mis à jour : {updated_rows} lignes enrichies sur {total_rows}")
+    if remaining_nulls > 0:
+        log_warning(f"{remaining_nulls} lignes ont encore latitude ou longitude vides après géocodage")
+    else:
+        log_info("Toutes les lignes ont maintenant latitude et longitude")
+
+    return True
 
 # ================= LOAD =================
 def load_data(data: Dict) -> bool:
@@ -359,12 +547,28 @@ def main():
     
     start_time = time.time()
     
+    # 1️⃣ Extraction des données
     records = extract_enedis_data()
     if not records:
         log_error("Aucune donnée. Arrêt.")
         return
-    
+
+    # 2️⃣ Enrichissement du CSV avec latitude / longitude manquantes
+    log_step(1.5, "ENRICHISSEMENT DU CSV AVEC LAT/LNG")
+    enriched = enrich_csv_with_geocode(CSV_FILE)
+    if not enriched:
+        log_warning("Enrichissement du CSV échoué ou non nécessaire")
+
+    # 3️⃣ Relecture des données pour transformation
+    records = extract_enedis_data()
+    if not records:
+        log_error("Aucune donnée après enrichissement. Arrêt.")
+        return
+
+    # 4️⃣ Transformation
     transformed_data = transform_data(records)
+
+    # 5️⃣ Sauvegarde
     success = load_data(transformed_data)
     
     elapsed_time = time.time() - start_time
@@ -381,6 +585,7 @@ def main():
         log_success("✓ ETL terminé ! Lancez maintenant : python -m http.server 8000")
     else:
         log_error("✗ ETL terminé avec des erreurs")
+
 
 if __name__ == "__main__":
     main()
