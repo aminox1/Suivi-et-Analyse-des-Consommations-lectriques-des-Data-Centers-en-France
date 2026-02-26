@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ETL - Extract Transform Load
-Télécharge les données Enedis, les transforme et les sauvegarde localement
+Télécharge les données Enedis (NAF 61, 62, 63), les transforme et les sauvegarde localement
 """
 
 import requests
@@ -19,12 +19,12 @@ CSV_FILE = "donnees_enedis_complet.csv"
 API_GEOCODING = "https://api-adresse.data.gouv.fr/search/"
 OUTPUT_FILE = "data.json"
 
-# Filtres - MODIFICATION: Maintenant on gère plusieurs codes NAF
-CODES_NAF = ["61", "63"]  # Télécommunications (61) et Informatique (63)
+# NOUVEAU : LISTE DES CODES (61=Telecom, 62=Prog/Conseil, 63=Data)
+CODES_NAF = ["61", "62", "63"]  
 SEUIL_CONSO_MWH = 100
 GEOCODING_DELAY = 0.15
 
-# ================= COULEURS POUR LOGS =================
+# ================= COULEURS =================
 class Colors:
     GREEN = '\033[92m'
     BLUE = '\033[94m'
@@ -33,32 +33,19 @@ class Colors:
     END = '\033[0m'
     BOLD = '\033[1m'
 
-def log_info(msg: str):
-    print(f"{Colors.BLUE}[INFO]{Colors.END} {msg}")
-
-def log_success(msg: str):
-    print(f"{Colors.GREEN}[OK]{Colors.END} {msg}")
-
-def log_warning(msg: str):
-    print(f"{Colors.YELLOW}[WARNING]{Colors.END} {msg}")
-
-def log_error(msg: str):
-    print(f"{Colors.RED}[ERROR]{Colors.END} {msg}")
-
-def log_step(step: int, title: str):
-    print(f"\n{Colors.BOLD}{Colors.BLUE}[ÉTAPE {step}] {title}{Colors.END}")
+def log_info(msg: str): print(f"{Colors.BLUE}[INFO]{Colors.END} {msg}")
+def log_success(msg: str): print(f"{Colors.GREEN}[OK]{Colors.END} {msg}")
+def log_warning(msg: str): print(f"{Colors.YELLOW}[WARNING]{Colors.END} {msg}")
+def log_error(msg: str): print(f"{Colors.RED}[ERROR]{Colors.END} {msg}")
+def log_step(step: int, title: str): print(f"\n{Colors.BOLD}{Colors.BLUE}[ÉTAPE {step}] {title}{Colors.END}")
 
 # ================= DOWNLOAD =================
 def download_enedis_data() -> bool:
-    """
-    Télécharge les données depuis l'API Enedis Open Data
-    """
-    log_info("Téléchargement depuis l'API Enedis Open Data...")
-    log_info(f"(Données pour les NAF: {', '.join(CODES_NAF)})")
+    log_info("Téléchargement API Enedis Open Data...")
     
-    # Télécharger pour chaque code NAF et combiner
     all_data = []
     
+    # On télécharge fichier par fichier pour chaque code NAF
     for code_naf in CODES_NAF:
         log_info(f"Téléchargement NAF {code_naf}...")
         params = {
@@ -70,22 +57,17 @@ def download_enedis_data() -> bool:
         try:
             response = requests.get(API_ENEDIS_EXPORT, params=params, timeout=180, stream=True)
             response.raise_for_status()
-            
-            # Lire le contenu
             content = response.content.decode('utf-8')
             all_data.append(content)
-            
             log_success(f"NAF {code_naf} téléchargé")
-            
         except Exception as e:
             log_error(f"Erreur téléchargement NAF {code_naf}: {e}")
             return False
     
-    # Combiner les fichiers CSV (garder l'en-tête du premier uniquement)
+    # On combine les CSV (en gardant qu'un seul header)
     if all_data:
-        combined = all_data[0]  # Premier fichier avec en-tête
+        combined = all_data[0]
         for data in all_data[1:]:
-            # Sauter la première ligne (en-tête) pour les fichiers suivants
             lines = data.split('\n')
             combined += '\n'.join(lines[1:])
         
@@ -103,20 +85,18 @@ def extract_enedis_data() -> List[Dict]:
     log_step(1, "EXTRACTION DES DONNÉES ENEDIS")
     
     if not os.path.exists(CSV_FILE):
-        log_info(f"Fichier local non trouvé")
-        if not download_enedis_data():
-            return []
+        log_info("Fichier local non trouvé")
+        if not download_enedis_data(): return []
     else:
         file_date = datetime.fromtimestamp(os.path.getmtime(CSV_FILE))
         log_info(f"Fichier existant trouvé (modifié le {file_date.strftime('%d/%m/%Y %H:%M')})")
-        log_info("Pour retélécharger, supprimez le fichier 'donnees_enedis_complet.csv'")
     
-    log_info(f"Lecture du fichier CSV...")
+    log_info("Lecture du fichier CSV...")
     records = []
     
     try:
         success = False
-        for encoding in ['utf-8', 'latin-1', 'cp1252', 'iso-8859-1']:
+        for encoding in ['utf-8', 'latin-1', 'cp1252']:
             for delimiter in [';', ',']:
                 try:
                     with open(CSV_FILE, 'r', encoding=encoding) as f:
@@ -131,25 +111,16 @@ def extract_enedis_data() -> List[Dict]:
                             log_success(f"{len(records)} lignes lues (encodage: {encoding})")
                             success = True
                             break
-                except:
-                    continue
-            if success:
-                break
-        
-        if not records:
-            raise Exception("Format CSV non reconnu")
-        
+                except: continue
+            if success: break
+        if not records: raise Exception("Format CSV non reconnu")
     except Exception as e:
         log_error(f"Erreur lecture : {e}")
         return []
     
-    # Filtrage par NAF
-    log_info(f"Filtrage : NAF {', '.join(CODES_NAF)}")
     filtered_records = []
-    
     for record in records:
         naf = record.get('code_secteur_naf2', '')
-        
         if naf in CODES_NAF:
             filtered_records.append(record)
     
@@ -159,7 +130,6 @@ def extract_enedis_data() -> List[Dict]:
 # ================= GEOCODING =================
 def geocode_address(address: str, code_postal: str = "", commune: str = "") -> Optional[Dict]:
     full_address = f"{address} {code_postal} {commune}".strip()
-    
     try:
         response = requests.get(API_GEOCODING, params={"q": full_address, "limit": 1}, timeout=10)
         response.raise_for_status()
@@ -170,16 +140,12 @@ def geocode_address(address: str, code_postal: str = "", commune: str = "") -> O
             coords = features[0]['geometry']['coordinates']
             context = features[0]['properties'].get('context', '')
             dept_code = context.split(',')[0].strip() if context else "00"
-            
             return {
-                "lat": coords[1],
-                "lng": coords[0],
-                "dept": dept_code,
+                "lat": coords[1], "lng": coords[0], "dept": dept_code,
                 "score": features[0]['properties'].get('score', 0)
             }
         return None
-    except:
-        return None
+    except: return None
 
 # ================= TRANSFORM =================
 def transform_data(records: List[Dict]) -> Dict:
@@ -187,17 +153,9 @@ def transform_data(records: List[Dict]) -> Dict:
     
     addresses_map = {}
     
-    log_info("Regroupement par adresse...")
-    debug_count = 0
     for record in records:
         adresse = record.get('adresse', '')
-        if not adresse:
-            continue
-        
-        if debug_count == 0:
-            log_info(f"DEBUG - Premier enregistrement: {list(record.keys())[:5]}")
-            log_info(f"DEBUG - adresse={adresse}, annee={record.get('annee')}, conso={record.get('consommation_annuelle_totale_de_ladresse_mwh')}")
-            debug_count += 1
+        if not adresse: continue
         
         code_dept = record.get('code_departement', '')
         commune = record.get('nom_commune', '')
@@ -222,23 +180,11 @@ def transform_data(records: List[Dict]) -> Dict:
         try:
             annee = int(annee_str) if annee_str else 0
             conso = float(conso_str.replace(',', '.').replace(' ', '')) if conso_str else 0
-            
-            if debug_count == 1:
-                log_info(f"DEBUG - Après conversion: annee={annee}, conso={conso}")
-                debug_count += 1
-            
-        except Exception as e:
-            if debug_count == 1:
-                log_error(f"DEBUG - Erreur conversion: {e}")
-            continue
+        except: continue
         
         if annee and conso:
             addresses_map[full_key]["historique"].append({"annee": annee, "mwh": conso})
     
-    log_success(f"{len(addresses_map)} adresses uniques")
-    
-    # Filtrer par consommation
-    log_info(f"Filtrage : CONSO ≥ {SEUIL_CONSO_MWH} MWh")
     addresses_filtered = {}
     for key, data in addresses_map.items():
         if data['historique']:
@@ -246,26 +192,19 @@ def transform_data(records: List[Dict]) -> Dict:
             if max_conso >= SEUIL_CONSO_MWH:
                 addresses_filtered[key] = data
     
-    log_success(f"{len(addresses_filtered)} adresses avec conso ≥ {SEUIL_CONSO_MWH} MWh")
-    addresses_map = addresses_filtered
-    
-    log_info("Géocodage des adresses...")
     datacenters = []
-    geocoded_count = 0
-    failed_count = 0
+    count = 0
+    total = len(addresses_filtered)
     
-    for i, (key, data) in enumerate(addresses_map.items(), 1):
-        print(f"\r  Géocodage {i}/{len(addresses_map)}...", end='', flush=True)
-        
-        dept_from_csv = data.get('code_departement', '')
+    for key, data in addresses_filtered.items():
+        print(f"\r  Géocodage {count+1}/{total}...", end='', flush=True)
         
         coords = geocode_address(data['adresse'], data['code_postal'], data['commune'])
         time.sleep(GEOCODING_DELAY)
         
         if coords:
             data['historique'].sort(key=lambda x: x['annee'], reverse=True)
-            
-            dept_final = dept_from_csv if dept_from_csv else coords['dept']
+            dept_final = data.get('code_departement', '') if data.get('code_departement', '') else coords['dept']
             
             datacenters.append({
                 "nom": data['adresse'],
@@ -277,18 +216,9 @@ def transform_data(records: List[Dict]) -> Dict:
                 "historique": data['historique'],
                 "score_geocoding": coords['score']
             })
-            geocoded_count += 1
-        else:
-            if dept_from_csv and data['historique']:
-                log_warning(f"Géocodage échoué pour {data['adresse'][:30]}... - conservé avec dept {dept_from_csv}")
-            failed_count += 1
-    
+        count += 1
     print()
-    log_success(f"{geocoded_count} adresses géocodées")
-    if failed_count > 0:
-        log_warning(f"{failed_count} échecs de géocodage")
     
-    log_info("Regroupement par département...")
     departements_map = {}
     
     for dc in datacenters:
@@ -317,7 +247,6 @@ def transform_data(records: List[Dict]) -> Dict:
         })
     
     departements.sort(key=lambda x: x['total_mwh'], reverse=True)
-    log_success(f"{len(departements)} départements")
     
     total_dc = len(datacenters)
     total_mwh = sum(dept['total_mwh'] for dept in departements)
@@ -338,13 +267,10 @@ def transform_data(records: List[Dict]) -> Dict:
 # ================= LOAD =================
 def load_data(data: Dict) -> bool:
     log_step(3, "SAUVEGARDE DES DONNÉES")
-    
     try:
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        
-        file_size = len(json.dumps(data)) / 1024
-        log_success(f"Données sauvegardées dans '{OUTPUT_FILE}' ({file_size:.1f} KB)")
+        log_success(f"Données sauvegardées dans '{OUTPUT_FILE}'")
         return True
     except Exception as e:
         log_error(f"Erreur : {e}")
@@ -353,7 +279,7 @@ def load_data(data: Dict) -> bool:
 # ================= MAIN =================
 def main():
     print(f"\n{Colors.BOLD}{'='*60}")
-    print(f"  ETL - DATA CENTERS FRANCE")
+    print(f"  ETL - DATA CENTERS & TELECOMS FRANCE")
     print(f"  Source: API Enedis Open Data")
     print(f"{'='*60}{Colors.END}\n")
     
@@ -371,10 +297,10 @@ def main():
     print(f"\n{Colors.BOLD}{'='*60}")
     print(f"  RÉSUMÉ")
     print(f"{'='*60}{Colors.END}")
-    print(f"  Data Centers détectés : {Colors.GREEN}{transformed_data['metadata']['total_datacenters']}{Colors.END}")
-    print(f"  Consommation totale   : {Colors.GREEN}{transformed_data['metadata']['total_gwh']} GWh{Colors.END}")
-    print(f"  Départements          : {Colors.GREEN}{transformed_data['metadata']['total_departements']}{Colors.END}")
-    print(f"  Temps d'exécution     : {Colors.BLUE}{elapsed_time:.1f}s{Colors.END}")
+    print(f"  Sites détectés      : {Colors.GREEN}{transformed_data['metadata']['total_datacenters']}{Colors.END}")
+    print(f"  Consommation totale : {Colors.GREEN}{transformed_data['metadata']['total_gwh']} GWh{Colors.END}")
+    print(f"  Départements        : {Colors.GREEN}{transformed_data['metadata']['total_departements']}{Colors.END}")
+    print(f"  Temps d'exécution   : {Colors.BLUE}{elapsed_time:.1f}s{Colors.END}")
     print(f"{'='*60}\n")
     
     if success:
