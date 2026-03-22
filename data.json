@@ -1,27 +1,28 @@
 {
   "metadata": {
-    "generated_at": "2026-02-26T17:10:13.370507",
+    "generated_at": "2026-03-22T14:18:10.775174",
     "source": "API Enedis Open Data",
-    "total_datacenters": 127,
-    "total_mwh": 1185538.37,
-    "total_gwh": 1185.54,
-    "total_departements": 28,
+    "total_datacenters": 197,
+    "total_mwh": 1661738.39,
+    "total_gwh": 1661.74,
+    "total_departements": 34,
     "filters": {
       "codes_naf": [
         "61",
         "62",
         "63"
       ],
-      "seuil_mwh": 100
+      "seuil_mwh": 100,
+      "rayon_match_m": 200
     }
   },
   "departements": [
     {
       "code": "93",
-      "lat": 48.92210393333333,
-      "lng": 2.4061066,
-      "total_mwh": 411284.5040000001,
-      "count": 15,
+      "lat": 48.92292219047619,
+      "lng": 2.4045185714285715,
+      "total_mwh": 513371.672,
+      "count": 21,
       "datacenters": [
         {
           "nom": "35 RUE DE LA MOTTE",
@@ -131,6 +132,29 @@
           "match_carte": true
         },
         {
+          "nom": "AVENUE DE LA CONVENTION",
+          "adresse_complete": "AVENUE DE LA CONVENTION, 93000 Bobigny",
+          "lat": 48.915629,
+          "lng": 2.417933,
+          "departement": "93",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 408.294
+            },
+            {
+              "annee": 2023,
+              "mwh": 422.312
+            },
+            {
+              "annee": 2022,
+              "mwh": 412.979
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "114 RUE AMBROISE CROIZAT",
           "adresse_complete": "114 RUE AMBROISE CROIZAT, 93000 Saint-Denis",
           "lat": 48.92817,
@@ -176,6 +200,37 @@
             {
               "annee": 2021,
               "mwh": 3569.389
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "22 AVENUE DES NATIONS",
+          "adresse_complete": "22 AVENUE DES NATIONS, 93000 Villepinte",
+          "lat": 48.97341,
+          "lng": 2.508361,
+          "departement": "93",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 919.302
+            },
+            {
+              "annee": 2023,
+              "mwh": 951.327
+            },
+            {
+              "annee": 2022,
+              "mwh": 1109.395
+            },
+            {
+              "annee": 2021,
+              "mwh": 1181.947
+            },
+            {
+              "annee": 2021,
+              "mwh": 260.547
             }
           ],
           "match_carte": true
@@ -254,6 +309,60 @@
           "match_carte": true
         },
         {
+          "nom": "45 AVENUE VICTOR HUGO",
+          "adresse_complete": "45 AVENUE VICTOR HUGO, 93000 Aubervilliers",
+          "lat": 48.903246,
+          "lng": 2.371632,
+          "departement": "93",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 15549.61
+            },
+            {
+              "annee": 2023,
+              "mwh": 15581.82
+            },
+            {
+              "annee": 2022,
+              "mwh": 10185.492
+            },
+            {
+              "annee": 2021,
+              "mwh": 10700.328
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "10 RUE WALDECK ROCHET",
+          "adresse_complete": "10 RUE WALDECK ROCHET, 93000 Aubervilliers",
+          "lat": 48.910874,
+          "lng": 2.367652,
+          "departement": "93",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 53086.406
+            },
+            {
+              "annee": 2023,
+              "mwh": 55447.419
+            },
+            {
+              "annee": 2022,
+              "mwh": 55487.245
+            },
+            {
+              "annee": 2021,
+              "mwh": 53985.936
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "2 RUE RATEAU",
           "adresse_complete": "2 RUE RATEAU, 93000 La Courneuve",
           "lat": 48.925142,
@@ -276,6 +385,29 @@
             {
               "annee": 2021,
               "mwh": 95569.915
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "206 BOULEVARD ANATOLE FRANCE",
+          "adresse_complete": "206 BOULEVARD ANATOLE FRANCE, 93000 Saint-Denis",
+          "lat": 48.918131,
+          "lng": 2.341179,
+          "departement": "93",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 168.437
+            },
+            {
+              "annee": 2022,
+              "mwh": 211.983
+            },
+            {
+              "annee": 2021,
+              "mwh": 176.922
             }
           ],
           "match_carte": true
@@ -358,6 +490,21 @@
           "match_carte": true
         },
         {
+          "nom": "AVENUE MARCEL CACHIN",
+          "adresse_complete": "AVENUE MARCEL CACHIN, 93000 La Courneuve",
+          "lat": 48.928517,
+          "lng": 2.396534,
+          "departement": "93",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2022,
+              "mwh": 31955.119
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "215 AVENUE DES NATIONS",
           "adresse_complete": "215 AVENUE DES NATIONS, 93000 Tremblay-en-France",
           "lat": 48.98159,
@@ -384,11 +531,30 @@
     },
     {
       "code": "92",
-      "lat": 48.8652821,
-      "lng": 2.2448035,
-      "total_mwh": 372675.301,
-      "count": 20,
+      "lat": 48.86366389189189,
+      "lng": 2.2445779999999997,
+      "total_mwh": 395927.27199999994,
+      "count": 37,
       "datacenters": [
+        {
+          "nom": "18 QUAI DU POINT DU JOUR",
+          "adresse_complete": "18 QUAI DU POINT DU JOUR, 92000 Boulogne-Billancourt",
+          "lat": 48.832288,
+          "lng": 2.259298,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 352.964
+            },
+            {
+              "annee": 2021,
+              "mwh": 303.889
+            }
+          ],
+          "match_carte": true
+        },
         {
           "nom": "276 RUE LOUIS BLERIOT",
           "adresse_complete": "276 RUE LOUIS BLERIOT, 92000 Boulogne-Billancourt",
@@ -462,6 +628,25 @@
             {
               "annee": 2021,
               "mwh": 7473.571
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 RUE JOSEPH RIVIERE",
+          "adresse_complete": "5 RUE JOSEPH RIVIERE, 92000 Courbevoie",
+          "lat": 48.902589,
+          "lng": 2.256837,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 168.035
+            },
+            {
+              "annee": 2021,
+              "mwh": 138.506
             }
           ],
           "match_carte": true
@@ -544,6 +729,60 @@
           "match_carte": true
         },
         {
+          "nom": "145 AVENUE PIERRE BROSSOLETTE",
+          "adresse_complete": "145 AVENUE PIERRE BROSSOLETTE, 92000 Montrouge",
+          "lat": 48.815679,
+          "lng": 2.305116,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 152.31
+            },
+            {
+              "annee": 2023,
+              "mwh": 197.858
+            },
+            {
+              "annee": 2022,
+              "mwh": 249.054
+            },
+            {
+              "annee": 2021,
+              "mwh": 238.151
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "57 RUE DES ACACIAS",
+          "adresse_complete": "57 RUE DES ACACIAS, 92000 Nanterre",
+          "lat": 48.901073,
+          "lng": 2.191825,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 4322.752
+            },
+            {
+              "annee": 2023,
+              "mwh": 4552.612
+            },
+            {
+              "annee": 2022,
+              "mwh": 4850.265
+            },
+            {
+              "annee": 2021,
+              "mwh": 3085.55
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "55 AVENUE DES CHAMPS PIERREUX",
           "adresse_complete": "55 AVENUE DES CHAMPS PIERREUX, 92000 Nanterre",
           "lat": 48.887531,
@@ -582,6 +821,129 @@
             {
               "annee": 2021,
               "mwh": 32.262
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "11 RUE LOUIS PHILIPPE",
+          "adresse_complete": "11 RUE LOUIS PHILIPPE, 92000 Neuilly-sur-Seine",
+          "lat": 48.882144,
+          "lng": 2.271638,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 105.049
+            },
+            {
+              "annee": 2021,
+              "mwh": 132.088
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "92 RUE PIERRE BROSSOLETTE",
+          "adresse_complete": "92 RUE PIERRE BROSSOLETTE, 92000 Rueil-Malmaison",
+          "lat": 48.882942,
+          "lng": 2.185217,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5111.229
+            },
+            {
+              "annee": 2023,
+              "mwh": 10553.038
+            },
+            {
+              "annee": 2022,
+              "mwh": 12180.093
+            },
+            {
+              "annee": 2021,
+              "mwh": 12796.837
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 RUE MAURICE MALLET",
+          "adresse_complete": "5 RUE MAURICE MALLET, 92000 Issy-les-Moulineaux",
+          "lat": 48.829623,
+          "lng": 2.266729,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 57.589
+            },
+            {
+              "annee": 2023,
+              "mwh": 59.444
+            },
+            {
+              "annee": 2023,
+              "mwh": 256.11
+            },
+            {
+              "annee": 2022,
+              "mwh": 57.896
+            },
+            {
+              "annee": 2022,
+              "mwh": 260.923
+            },
+            {
+              "annee": 2021,
+              "mwh": 246.986
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 SQUARE LOUIS BLERIOT",
+          "adresse_complete": "5 SQUARE LOUIS BLERIOT, 92000 Issy-les-Moulineaux",
+          "lat": 48.829484,
+          "lng": 2.265975,
+          "departement": "92",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 225.925
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "40 AVENUE ANDRE MORIZET",
+          "adresse_complete": "40 AVENUE ANDRE MORIZET, 92000 Boulogne-Billancourt",
+          "lat": 48.836668,
+          "lng": 2.237558,
+          "departement": "92",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 356.067
+            },
+            {
+              "annee": 2023,
+              "mwh": 493.921
+            },
+            {
+              "annee": 2022,
+              "mwh": 430.708
+            },
+            {
+              "annee": 2021,
+              "mwh": 352.147
             }
           ],
           "match_carte": true
@@ -641,6 +1003,64 @@
           "match_carte": true
         },
         {
+          "nom": "171 AVENUE GEORGES CLEMENCEAU",
+          "adresse_complete": "171 AVENUE GEORGES CLEMENCEAU, 92000 Nanterre",
+          "lat": 48.886511,
+          "lng": 2.21349,
+          "departement": "92",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 196.772
+            },
+            {
+              "annee": 2024,
+              "mwh": 10.215
+            },
+            {
+              "annee": 2023,
+              "mwh": 254.315
+            },
+            {
+              "annee": 2022,
+              "mwh": 328.937
+            },
+            {
+              "annee": 2021,
+              "mwh": 305.305
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "163 AVENUE GEORGES CLEMENCEAU",
+          "adresse_complete": "163 AVENUE GEORGES CLEMENCEAU, 92000 Nanterre",
+          "lat": 48.88697,
+          "lng": 2.212807,
+          "departement": "92",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 53.321
+            },
+            {
+              "annee": 2023,
+              "mwh": 107.798
+            },
+            {
+              "annee": 2022,
+              "mwh": 140.193
+            },
+            {
+              "annee": 2021,
+              "mwh": 138.309
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "44 RUE KLEBER",
           "adresse_complete": "44 RUE KLEBER, 92000 Nanterre",
           "lat": 48.902578,
@@ -663,6 +1083,44 @@
             {
               "annee": 2021,
               "mwh": 5604.947
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "2 RUE ROUGET DE LISLE",
+          "adresse_complete": "2 RUE ROUGET DE LISLE, 92000 Issy-les-Moulineaux",
+          "lat": 48.829374,
+          "lng": 2.262093,
+          "departement": "92",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 3433.291
+            },
+            {
+              "annee": 2022,
+              "mwh": 4135.582
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 ALLEE GUSTAVE EIFFEL",
+          "adresse_complete": "5 ALLEE GUSTAVE EIFFEL, 92000 Issy-les-Moulineaux",
+          "lat": 48.827675,
+          "lng": 2.264966,
+          "departement": "92",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 444.821
+            },
+            {
+              "annee": 2023,
+              "mwh": 420.344
             }
           ],
           "match_carte": true
@@ -787,6 +1245,60 @@
           "match_carte": true
         },
         {
+          "nom": "13 RUE LATERALE",
+          "adresse_complete": "13 RUE LATERALE, 92000 Courbevoie",
+          "lat": 48.903037,
+          "lng": 2.261255,
+          "departement": "92",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 281.167
+            },
+            {
+              "annee": 2023,
+              "mwh": 283.41
+            },
+            {
+              "annee": 2022,
+              "mwh": 277.775
+            },
+            {
+              "annee": 2021,
+              "mwh": 367.86
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "4 RUE MAURICE MALLET",
+          "adresse_complete": "4 RUE MAURICE MALLET, 92000 Issy-les-Moulineaux",
+          "lat": 48.82992,
+          "lng": 2.266266,
+          "departement": "92",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 521.301
+            },
+            {
+              "annee": 2023,
+              "mwh": 303.88
+            },
+            {
+              "annee": 2022,
+              "mwh": 165.989
+            },
+            {
+              "annee": 2021,
+              "mwh": 5058.951
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "PASSAGE DU PUITS BERTIN",
           "adresse_complete": "PASSAGE DU PUITS BERTIN, 92000 Clichy",
           "lat": 48.899435,
@@ -820,6 +1332,33 @@
             {
               "annee": 2021,
               "mwh": 8358.816
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "205 AVENUE GEORGES CLEMENCEAU",
+          "adresse_complete": "205 AVENUE GEORGES CLEMENCEAU, 92000 Nanterre",
+          "lat": 48.886604,
+          "lng": 2.215711,
+          "departement": "92",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 133.782
+            },
+            {
+              "annee": 2023,
+              "mwh": 171.206
+            },
+            {
+              "annee": 2022,
+              "mwh": 186.174
+            },
+            {
+              "annee": 2021,
+              "mwh": 237.309
             }
           ],
           "match_carte": true
@@ -863,6 +1402,25 @@
           "match_carte": true
         },
         {
+          "nom": "RUE HENNAPE",
+          "adresse_complete": "RUE HENNAPE, 92000 Nanterre",
+          "lat": 48.887341,
+          "lng": 2.216535,
+          "departement": "92",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 7335.596
+            },
+            {
+              "annee": 2022,
+              "mwh": 11873.423
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "21 RUE DU PORT",
           "adresse_complete": "21 RUE DU PORT, 92000 Nanterre",
           "lat": 48.894125,
@@ -873,6 +1431,1255 @@
             {
               "annee": 2024,
               "mwh": 10089.577
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "75",
+      "lat": 48.85749472727273,
+      "lng": 2.3393574545454543,
+      "total_mwh": 126679.63399999999,
+      "count": 22,
+      "datacenters": [
+        {
+          "nom": "63 BOULEVARD BESSIERES",
+          "adresse_complete": "63 BOULEVARD BESSIERES, 75000 Paris",
+          "lat": 48.897259,
+          "lng": 2.322022,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 7057.479
+            },
+            {
+              "annee": 2024,
+              "mwh": 161.732
+            },
+            {
+              "annee": 2023,
+              "mwh": 7502.622
+            },
+            {
+              "annee": 2023,
+              "mwh": 178.5
+            },
+            {
+              "annee": 2022,
+              "mwh": 7657.498
+            },
+            {
+              "annee": 2022,
+              "mwh": 188.14
+            },
+            {
+              "annee": 2021,
+              "mwh": 7613.101
+            },
+            {
+              "annee": 2021,
+              "mwh": 213.29
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "6 PLACE D ALLERAY",
+          "adresse_complete": "6 PLACE D ALLERAY, 75000 Paris",
+          "lat": 48.836124,
+          "lng": 2.30659,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1593.246
+            },
+            {
+              "annee": 2023,
+              "mwh": 1697.055
+            },
+            {
+              "annee": 2022,
+              "mwh": 1641.876
+            },
+            {
+              "annee": 2021,
+              "mwh": 1240.229
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "60 RUE DE WATTIGNIES",
+          "adresse_complete": "60 RUE DE WATTIGNIES, 75000 Paris",
+          "lat": 48.835253,
+          "lng": 2.398162,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2985.532
+            },
+            {
+              "annee": 2024,
+              "mwh": 24.198
+            },
+            {
+              "annee": 2023,
+              "mwh": 4273.169
+            },
+            {
+              "annee": 2023,
+              "mwh": 25.153
+            },
+            {
+              "annee": 2022,
+              "mwh": 4875.719
+            },
+            {
+              "annee": 2022,
+              "mwh": 24.211
+            },
+            {
+              "annee": 2021,
+              "mwh": 4806.131
+            },
+            {
+              "annee": 2021,
+              "mwh": 25.613
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "6 RUE DES HAUDRIETTES",
+          "adresse_complete": "6 RUE DES HAUDRIETTES, 75000 Paris",
+          "lat": 48.861637,
+          "lng": 2.3576,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 240.766
+            },
+            {
+              "annee": 2023,
+              "mwh": 238.805
+            },
+            {
+              "annee": 2022,
+              "mwh": 268.405
+            },
+            {
+              "annee": 2021,
+              "mwh": 277.279
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "42 RUE DES JEUNEURS",
+          "adresse_complete": "42 RUE DES JEUNEURS, 75000 Paris",
+          "lat": 48.869807,
+          "lng": 2.343698,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 761.109
+            },
+            {
+              "annee": 2023,
+              "mwh": 791.026
+            },
+            {
+              "annee": 2022,
+              "mwh": 845.169
+            },
+            {
+              "annee": 2021,
+              "mwh": 858.523
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "38 RUE DES JEUNEURS",
+          "adresse_complete": "38 RUE DES JEUNEURS, 75000 Paris",
+          "lat": 48.869708,
+          "lng": 2.344165,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 622.685
+            },
+            {
+              "annee": 2024,
+              "mwh": 66.612
+            },
+            {
+              "annee": 2023,
+              "mwh": 1052.497
+            },
+            {
+              "annee": 2023,
+              "mwh": 50.907
+            },
+            {
+              "annee": 2022,
+              "mwh": 1116.516
+            },
+            {
+              "annee": 2022,
+              "mwh": 38.812
+            },
+            {
+              "annee": 2021,
+              "mwh": 172.078
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "112 RUE DU TEMPLE",
+          "adresse_complete": "112 RUE DU TEMPLE, 75000 Paris",
+          "lat": 48.862762,
+          "lng": 2.357861,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 18241.23
+            },
+            {
+              "annee": 2023,
+              "mwh": 18732.949
+            },
+            {
+              "annee": 2022,
+              "mwh": 19712.192
+            },
+            {
+              "annee": 2021,
+              "mwh": 19727.521
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "24 RUE LUCIEN BOSSOUTROT",
+          "adresse_complete": "24 RUE LUCIEN BOSSOUTROT, 75000 Paris",
+          "lat": 48.83679,
+          "lng": 2.272932,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 6360.584
+            },
+            {
+              "annee": 2023,
+              "mwh": 6634.573
+            },
+            {
+              "annee": 2022,
+              "mwh": 6900.867
+            },
+            {
+              "annee": 2021,
+              "mwh": 10341.725
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 RUE LUCIEN BOSSOUTROT",
+          "adresse_complete": "1 RUE LUCIEN BOSSOUTROT, 75000 Paris",
+          "lat": 48.837098,
+          "lng": 2.271308,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 6028.388
+            },
+            {
+              "annee": 2023,
+              "mwh": 8015.488
+            },
+            {
+              "annee": 2022,
+              "mwh": 9925.189
+            },
+            {
+              "annee": 2021,
+              "mwh": 9834.654
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "7 RUE MOUSSET ROBERT",
+          "adresse_complete": "7 RUE MOUSSET ROBERT, 75000 Paris",
+          "lat": 48.843024,
+          "lng": 2.404221,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2204.466
+            },
+            {
+              "annee": 2023,
+              "mwh": 2068.483
+            },
+            {
+              "annee": 2022,
+              "mwh": 1997.157
+            },
+            {
+              "annee": 2021,
+              "mwh": 1967.829
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "9 RUE NANTEUIL",
+          "adresse_complete": "9 RUE NANTEUIL, 75000 Paris",
+          "lat": 48.835001,
+          "lng": 2.306688,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 8128.936
+            },
+            {
+              "annee": 2022,
+              "mwh": 8834.08
+            },
+            {
+              "annee": 2021,
+              "mwh": 8531.709
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "137 BOULEVARD VOLTAIRE",
+          "adresse_complete": "137 BOULEVARD VOLTAIRE, 75000 Paris",
+          "lat": 48.856082,
+          "lng": 2.383332,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 35148.099
+            },
+            {
+              "annee": 2023,
+              "mwh": 38050.579
+            },
+            {
+              "annee": 2022,
+              "mwh": 39238.926
+            },
+            {
+              "annee": 2021,
+              "mwh": 39244.692
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "58 BOULEVARD LEFEBVRE",
+          "adresse_complete": "58 BOULEVARD LEFEBVRE, 75000 Paris",
+          "lat": 48.829571,
+          "lng": 2.296008,
+          "departement": "75",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1079.112
+            },
+            {
+              "annee": 2021,
+              "mwh": 288.756
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "31 RUE DES JEUNEURS",
+          "adresse_complete": "31 RUE DES JEUNEURS, 75000 Paris",
+          "lat": 48.869568,
+          "lng": 2.344292,
+          "departement": "75",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 298.693
+            },
+            {
+              "annee": 2023,
+              "mwh": 300.973
+            },
+            {
+              "annee": 2022,
+              "mwh": 313.879
+            },
+            {
+              "annee": 2021,
+              "mwh": 7.127
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "63 RUE LEON FROT",
+          "adresse_complete": "63 RUE LEON FROT, 75000 Paris",
+          "lat": 48.856605,
+          "lng": 2.38548,
+          "departement": "75",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 28968.456
+            },
+            {
+              "annee": 2023,
+              "mwh": 22064.719
+            },
+            {
+              "annee": 2022,
+              "mwh": 11715.792
+            },
+            {
+              "annee": 2021,
+              "mwh": 5577.113
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "115 RUE REAUMUR",
+          "adresse_complete": "115 RUE REAUMUR, 75000 Paris",
+          "lat": 48.868231,
+          "lng": 2.342843,
+          "departement": "75",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 381.686
+            },
+            {
+              "annee": 2023,
+              "mwh": 342.644
+            },
+            {
+              "annee": 2022,
+              "mwh": 318.22
+            },
+            {
+              "annee": 2021,
+              "mwh": 138.785
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "110 RUE DU TEMPLE",
+          "adresse_complete": "110 RUE DU TEMPLE, 75000 Paris",
+          "lat": 48.862687,
+          "lng": 2.357821,
+          "departement": "75",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 245.771
+            },
+            {
+              "annee": 2023,
+              "mwh": 0.358
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "163 RUE MONTMARTRE",
+          "adresse_complete": "163 RUE MONTMARTRE, 75000 Paris",
+          "lat": 48.871009,
+          "lng": 2.342793,
+          "departement": "75",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 121.255
+            },
+            {
+              "annee": 2023,
+              "mwh": 49.443
+            },
+            {
+              "annee": 2022,
+              "mwh": 45.519
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "35 RUE DES JEUNEURS",
+          "adresse_complete": "35 RUE DES JEUNEURS, 75000 Paris",
+          "lat": 48.869658,
+          "lng": 2.343825,
+          "departement": "75",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 663.142
+            },
+            {
+              "annee": 2023,
+              "mwh": 667.444
+            },
+            {
+              "annee": 2022,
+              "mwh": 671.356
+            },
+            {
+              "annee": 2021,
+              "mwh": 656.61
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "178 RUE MONTMARTRE",
+          "adresse_complete": "178 RUE MONTMARTRE, 75000 Paris",
+          "lat": 48.871181,
+          "lng": 2.343087,
+          "departement": "75",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 75.468
+            },
+            {
+              "annee": 2023,
+              "mwh": 247.192
+            },
+            {
+              "annee": 2022,
+              "mwh": 261.096
+            },
+            {
+              "annee": 2021,
+              "mwh": 238.845
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "3 AVENUE OCTAVE GREARD",
+          "adresse_complete": "3 AVENUE OCTAVE GREARD, 75000 Paris",
+          "lat": 48.856362,
+          "lng": 2.293443,
+          "departement": "75",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 1150.07
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "19 RUE POISSONNIERE",
+          "adresse_complete": "19 RUE POISSONNIERE, 75000 Paris",
+          "lat": 48.869467,
+          "lng": 2.347693,
+          "departement": "75",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 4323.461
+            },
+            {
+              "annee": 2023,
+              "mwh": 4352.091
+            },
+            {
+              "annee": 2022,
+              "mwh": 4377.322
+            },
+            {
+              "annee": 2021,
+              "mwh": 4529.329
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "78",
+      "lat": 48.80633158333333,
+      "lng": 2.1085700833333334,
+      "total_mwh": 121197.20100000002,
+      "count": 12,
+      "datacenters": [
+        {
+          "nom": "205 AVENUE DU GENERAL DE GAULLE",
+          "adresse_complete": "205 AVENUE DU GENERAL DE GAULLE, 78000 Achères",
+          "lat": 48.971646,
+          "lng": 2.075576,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 15351.267
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 RUE PABLO PICASSO",
+          "adresse_complete": "1 RUE PABLO PICASSO, 78000 Magny-les-Hameaux",
+          "lat": 48.726529,
+          "lng": 2.079394,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 41721.338
+            },
+            {
+              "annee": 2023,
+              "mwh": 38321.695
+            },
+            {
+              "annee": 2022,
+              "mwh": 37979.827
+            },
+            {
+              "annee": 2021,
+              "mwh": 40123.007
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 AVENUE ALBERT EINSTEIN",
+          "adresse_complete": "1 AVENUE ALBERT EINSTEIN, 78000 Trappes",
+          "lat": 48.767595,
+          "lng": 2.00062,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 3826.526
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 B AVENUE ALBERT EINSTEIN",
+          "adresse_complete": "1 B AVENUE ALBERT EINSTEIN, 78000 Trappes",
+          "lat": 48.767137,
+          "lng": 2.002911,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 218.879
+            },
+            {
+              "annee": 2021,
+              "mwh": 253.547
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "15 RUE DENIS PAPIN",
+          "adresse_complete": "15 RUE DENIS PAPIN, 78000 Trappes",
+          "lat": 48.76544,
+          "lng": 2.000406,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 3690.872
+            },
+            {
+              "annee": 2023,
+              "mwh": 3524.827
+            },
+            {
+              "annee": 2022,
+              "mwh": 3637.088
+            },
+            {
+              "annee": 2021,
+              "mwh": 3327.435
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "16 RUE GRANGE DAME ROSE",
+          "adresse_complete": "16 RUE GRANGE DAME ROSE, 78000 Vélizy-Villacoublay",
+          "lat": 48.784011,
+          "lng": 2.206552,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 639.536
+            },
+            {
+              "annee": 2024,
+              "mwh": 1190.804
+            },
+            {
+              "annee": 2023,
+              "mwh": 702.988
+            },
+            {
+              "annee": 2023,
+              "mwh": 984.552
+            },
+            {
+              "annee": 2023,
+              "mwh": 197.502
+            },
+            {
+              "annee": 2022,
+              "mwh": 739.04
+            },
+            {
+              "annee": 2022,
+              "mwh": 883.816
+            },
+            {
+              "annee": 2022,
+              "mwh": 149.86
+            },
+            {
+              "annee": 2021,
+              "mwh": 813.634
+            },
+            {
+              "annee": 2021,
+              "mwh": 207.377
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "6 RUE NIEUPORT",
+          "adresse_complete": "6 RUE NIEUPORT, 78000 Vélizy-Villacoublay",
+          "lat": 48.78258,
+          "lng": 2.208385,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1256.987
+            },
+            {
+              "annee": 2023,
+              "mwh": 1575.717
+            },
+            {
+              "annee": 2022,
+              "mwh": 1690.289
+            },
+            {
+              "annee": 2021,
+              "mwh": 1724.782
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 RUE JEAN PIERRE TIMBAUD",
+          "adresse_complete": "1 RUE JEAN PIERRE TIMBAUD, 78000 Montigny-le-Bretonneux",
+          "lat": 48.794019,
+          "lng": 2.036028,
+          "departement": "78",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 23730.243
+            },
+            {
+              "annee": 2023,
+              "mwh": 22786.841
+            },
+            {
+              "annee": 2022,
+              "mwh": 21655.131
+            },
+            {
+              "annee": 2021,
+              "mwh": 20963.953
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "4 RUE GUSTAVE EIFFEL",
+          "adresse_complete": "4 RUE GUSTAVE EIFFEL, 78000 Andrésy",
+          "lat": 48.972885,
+          "lng": 2.042941,
+          "departement": "78",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5819.191
+            },
+            {
+              "annee": 2023,
+              "mwh": 5844.096
+            },
+            {
+              "annee": 2022,
+              "mwh": 5325.454
+            },
+            {
+              "annee": 2021,
+              "mwh": 4552.728
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "19 AVENUE MORANE SAULNIER",
+          "adresse_complete": "19 AVENUE MORANE SAULNIER, 78000 Vélizy-Villacoublay",
+          "lat": 48.785284,
+          "lng": 2.218018,
+          "departement": "78",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 7684.163
+            },
+            {
+              "annee": 2023,
+              "mwh": 7458.639
+            },
+            {
+              "annee": 2022,
+              "mwh": 5875.785
+            },
+            {
+              "annee": 2021,
+              "mwh": 6491.563
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "45 AVENUE DE L EUROPE",
+          "adresse_complete": "45 AVENUE DE L EUROPE, 78000 Vélizy-Villacoublay",
+          "lat": 48.778412,
+          "lng": 2.214759,
+          "departement": "78",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 9.395
+            },
+            {
+              "annee": 2023,
+              "mwh": 241.632
+            },
+            {
+              "annee": 2022,
+              "mwh": 467.769
+            },
+            {
+              "annee": 2021,
+              "mwh": 542.125
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "16 AVENUE DE L EUROPE",
+          "adresse_complete": "16 AVENUE DE L EUROPE, 78000 Vélizy-Villacoublay",
+          "lat": 48.780441,
+          "lng": 2.217251,
+          "departement": "78",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 17248.804
+            },
+            {
+              "annee": 2023,
+              "mwh": 15108.333
+            },
+            {
+              "annee": 2022,
+              "mwh": 13416.385
+            },
+            {
+              "annee": 2021,
+              "mwh": 12764.563
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "77",
+      "lat": 48.81852383333333,
+      "lng": 2.633421166666667,
+      "total_mwh": 95057.48599999999,
+      "count": 12,
+      "datacenters": [
+        {
+          "nom": "13 MAIL BARTHELEMY THIMONNIER",
+          "adresse_complete": "13 MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
+          "lat": 48.839619,
+          "lng": 2.628419,
+          "departement": "77",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 317.717
+            },
+            {
+              "annee": 2023,
+              "mwh": 613.562
+            },
+            {
+              "annee": 2022,
+              "mwh": 566.61
+            },
+            {
+              "annee": 2021,
+              "mwh": 602.735
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 AVENUE PIERRE GILLES DE GENNES",
+          "adresse_complete": "1 AVENUE PIERRE GILLES DE GENNES, 77000 Bailly-Romainvilliers",
+          "lat": 48.845054,
+          "lng": 2.802982,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 28244.219
+            },
+            {
+              "annee": 2023,
+              "mwh": 26520.778
+            },
+            {
+              "annee": 2022,
+              "mwh": 24674.019
+            },
+            {
+              "annee": 2021,
+              "mwh": 23759.789
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "100 RUE ALFRED KASTLER",
+          "adresse_complete": "100 RUE ALFRED KASTLER, 77000 Lieusaint",
+          "lat": 48.622391,
+          "lng": 2.552668,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 30337.228
+            },
+            {
+              "annee": 2023,
+              "mwh": 29471.068
+            },
+            {
+              "annee": 2021,
+              "mwh": 29923.072
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "93 COURS DES PETITES ECURIES",
+          "adresse_complete": "93 COURS DES PETITES ECURIES, 77000 Lognes",
+          "lat": 48.836738,
+          "lng": 2.641437,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 9039.246
+            },
+            {
+              "annee": 2023,
+              "mwh": 9914.822
+            },
+            {
+              "annee": 2022,
+              "mwh": 10855.919
+            },
+            {
+              "annee": 2021,
+              "mwh": 11325.44
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "91 COURS DES PETITES ECURIES",
+          "adresse_complete": "91 COURS DES PETITES ECURIES, 77000 Lognes",
+          "lat": 48.836741,
+          "lng": 2.640511,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5889.128
+            },
+            {
+              "annee": 2023,
+              "mwh": 6872.881
+            },
+            {
+              "annee": 2022,
+              "mwh": 8206.743
+            },
+            {
+              "annee": 2021,
+              "mwh": 8884.378
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "8 RUE SAINTE CLAIRE DEVILLE",
+          "adresse_complete": "8 RUE SAINTE CLAIRE DEVILLE, 77000 Lognes",
+          "lat": 48.84029,
+          "lng": 2.630501,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1.343
+            },
+            {
+              "annee": 2023,
+              "mwh": 36.652
+            },
+            {
+              "annee": 2022,
+              "mwh": 149.639
+            },
+            {
+              "annee": 2021,
+              "mwh": 192.108
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "6 RUE SAINTE CLAIRE DEVILLE",
+          "adresse_complete": "6 RUE SAINTE CLAIRE DEVILLE, 77000 Lognes",
+          "lat": 48.840268,
+          "lng": 2.631075,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 90.115
+            },
+            {
+              "annee": 2023,
+              "mwh": 30.151
+            },
+            {
+              "annee": 2022,
+              "mwh": 120.262
+            },
+            {
+              "annee": 2021,
+              "mwh": 192.192
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE ALBERT EINSTEIN",
+          "adresse_complete": "RUE ALBERT EINSTEIN, 77000 Champs-sur-Marne",
+          "lat": 48.835891,
+          "lng": 2.587388,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 4107.825
+            },
+            {
+              "annee": 2023,
+              "mwh": 4134.315
+            },
+            {
+              "annee": 2022,
+              "mwh": 3959.556
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "33 RUE DES VIEILLES VIGNES",
+          "adresse_complete": "33 RUE DES VIEILLES VIGNES, 77000 Croissy-Beaubourg",
+          "lat": 48.817333,
+          "lng": 2.641363,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 6525.413
+            },
+            {
+              "annee": 2023,
+              "mwh": 7992.237
+            },
+            {
+              "annee": 2022,
+              "mwh": 8460.298
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "12 RUE VLADIMIR JANKELEVITCH",
+          "adresse_complete": "12 RUE VLADIMIR JANKELEVITCH, 77000 Émerainville",
+          "lat": 48.829085,
+          "lng": 2.587045,
+          "departement": "77",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 7287.87
+            },
+            {
+              "annee": 2023,
+              "mwh": 7538.944
+            },
+            {
+              "annee": 2022,
+              "mwh": 7557.571
+            },
+            {
+              "annee": 2021,
+              "mwh": 7769.675
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "12 MAIL BARTHELEMY THIMONNIER",
+          "adresse_complete": "12 MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
+          "lat": 48.839567,
+          "lng": 2.628235,
+          "departement": "77",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 425.781
+            },
+            {
+              "annee": 2023,
+              "mwh": 440.703
+            },
+            {
+              "annee": 2021,
+              "mwh": 530.182
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "MAIL BARTHELEMY THIMONNIER",
+          "adresse_complete": "MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
+          "lat": 48.839309,
+          "lng": 2.62943,
+          "departement": "77",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2791.601
+            },
+            {
+              "annee": 2023,
+              "mwh": 2471.026
+            },
+            {
+              "annee": 2022,
+              "mwh": 1905.064
             }
           ],
           "match_carte": true
@@ -1042,1012 +2849,11 @@
       ]
     },
     {
-      "code": "75",
-      "lat": 48.859219,
-      "lng": 2.3499836923076924,
-      "total_mwh": 81759.71499999998,
-      "count": 13,
-      "datacenters": [
-        {
-          "nom": "63 BOULEVARD BESSIERES",
-          "adresse_complete": "63 BOULEVARD BESSIERES, 75000 Paris",
-          "lat": 48.897259,
-          "lng": 2.322022,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 7057.479
-            },
-            {
-              "annee": 2024,
-              "mwh": 161.732
-            },
-            {
-              "annee": 2023,
-              "mwh": 7502.622
-            },
-            {
-              "annee": 2023,
-              "mwh": 178.5
-            },
-            {
-              "annee": 2022,
-              "mwh": 7657.498
-            },
-            {
-              "annee": 2022,
-              "mwh": 188.14
-            },
-            {
-              "annee": 2021,
-              "mwh": 7613.101
-            },
-            {
-              "annee": 2021,
-              "mwh": 213.29
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "60 RUE DE WATTIGNIES",
-          "adresse_complete": "60 RUE DE WATTIGNIES, 75000 Paris",
-          "lat": 48.835253,
-          "lng": 2.398162,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 2985.532
-            },
-            {
-              "annee": 2024,
-              "mwh": 24.198
-            },
-            {
-              "annee": 2023,
-              "mwh": 4273.169
-            },
-            {
-              "annee": 2023,
-              "mwh": 25.153
-            },
-            {
-              "annee": 2022,
-              "mwh": 4875.719
-            },
-            {
-              "annee": 2022,
-              "mwh": 24.211
-            },
-            {
-              "annee": 2021,
-              "mwh": 4806.131
-            },
-            {
-              "annee": 2021,
-              "mwh": 25.613
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "42 RUE DES JEUNEURS",
-          "adresse_complete": "42 RUE DES JEUNEURS, 75000 Paris",
-          "lat": 48.869807,
-          "lng": 2.343698,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 761.109
-            },
-            {
-              "annee": 2023,
-              "mwh": 791.026
-            },
-            {
-              "annee": 2022,
-              "mwh": 845.169
-            },
-            {
-              "annee": 2021,
-              "mwh": 858.523
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "38 RUE DES JEUNEURS",
-          "adresse_complete": "38 RUE DES JEUNEURS, 75000 Paris",
-          "lat": 48.869708,
-          "lng": 2.344165,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 622.685
-            },
-            {
-              "annee": 2024,
-              "mwh": 66.612
-            },
-            {
-              "annee": 2023,
-              "mwh": 1052.497
-            },
-            {
-              "annee": 2023,
-              "mwh": 50.907
-            },
-            {
-              "annee": 2022,
-              "mwh": 1116.516
-            },
-            {
-              "annee": 2022,
-              "mwh": 38.812
-            },
-            {
-              "annee": 2021,
-              "mwh": 172.078
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "112 RUE DU TEMPLE",
-          "adresse_complete": "112 RUE DU TEMPLE, 75000 Paris",
-          "lat": 48.862762,
-          "lng": 2.357861,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 18241.23
-            },
-            {
-              "annee": 2023,
-              "mwh": 18732.949
-            },
-            {
-              "annee": 2022,
-              "mwh": 19712.192
-            },
-            {
-              "annee": 2021,
-              "mwh": 19727.521
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "7 RUE MOUSSET ROBERT",
-          "adresse_complete": "7 RUE MOUSSET ROBERT, 75000 Paris",
-          "lat": 48.843024,
-          "lng": 2.404221,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 2204.466
-            },
-            {
-              "annee": 2023,
-              "mwh": 2068.483
-            },
-            {
-              "annee": 2022,
-              "mwh": 1997.157
-            },
-            {
-              "annee": 2021,
-              "mwh": 1967.829
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "9 RUE NANTEUIL",
-          "adresse_complete": "9 RUE NANTEUIL, 75000 Paris",
-          "lat": 48.835001,
-          "lng": 2.306688,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2023,
-              "mwh": 8128.936
-            },
-            {
-              "annee": 2022,
-              "mwh": 8834.08
-            },
-            {
-              "annee": 2021,
-              "mwh": 8531.709
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "137 BOULEVARD VOLTAIRE",
-          "adresse_complete": "137 BOULEVARD VOLTAIRE, 75000 Paris",
-          "lat": 48.856082,
-          "lng": 2.383332,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 35148.099
-            },
-            {
-              "annee": 2023,
-              "mwh": 38050.579
-            },
-            {
-              "annee": 2022,
-              "mwh": 39238.926
-            },
-            {
-              "annee": 2021,
-              "mwh": 39244.692
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "58 BOULEVARD LEFEBVRE",
-          "adresse_complete": "58 BOULEVARD LEFEBVRE, 75000 Paris",
-          "lat": 48.829571,
-          "lng": 2.296008,
-          "departement": "75",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 1079.112
-            },
-            {
-              "annee": 2021,
-              "mwh": 288.756
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "31 RUE DES JEUNEURS",
-          "adresse_complete": "31 RUE DES JEUNEURS, 75000 Paris",
-          "lat": 48.869568,
-          "lng": 2.344292,
-          "departement": "75",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 298.693
-            },
-            {
-              "annee": 2023,
-              "mwh": 300.973
-            },
-            {
-              "annee": 2022,
-              "mwh": 313.879
-            },
-            {
-              "annee": 2021,
-              "mwh": 7.127
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "110 RUE DU TEMPLE",
-          "adresse_complete": "110 RUE DU TEMPLE, 75000 Paris",
-          "lat": 48.862687,
-          "lng": 2.357821,
-          "departement": "75",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 245.771
-            },
-            {
-              "annee": 2023,
-              "mwh": 0.358
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "35 RUE DES JEUNEURS",
-          "adresse_complete": "35 RUE DES JEUNEURS, 75000 Paris",
-          "lat": 48.869658,
-          "lng": 2.343825,
-          "departement": "75",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 663.142
-            },
-            {
-              "annee": 2023,
-              "mwh": 667.444
-            },
-            {
-              "annee": 2022,
-              "mwh": 671.356
-            },
-            {
-              "annee": 2021,
-              "mwh": 656.61
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "19 RUE POISSONNIERE",
-          "adresse_complete": "19 RUE POISSONNIERE, 75000 Paris",
-          "lat": 48.869467,
-          "lng": 2.347693,
-          "departement": "75",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 4323.461
-            },
-            {
-              "annee": 2023,
-              "mwh": 4352.091
-            },
-            {
-              "annee": 2022,
-              "mwh": 4377.322
-            },
-            {
-              "annee": 2021,
-              "mwh": 4529.329
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
-      "code": "78",
-      "lat": 48.82867925,
-      "lng": 2.12523725,
-      "total_mwh": 67746.295,
-      "count": 8,
-      "datacenters": [
-        {
-          "nom": "205 AVENUE DU GENERAL DE GAULLE",
-          "adresse_complete": "205 AVENUE DU GENERAL DE GAULLE, 78000 Achères",
-          "lat": 48.971646,
-          "lng": 2.075576,
-          "departement": "78",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2021,
-              "mwh": 15351.267
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "15 RUE DENIS PAPIN",
-          "adresse_complete": "15 RUE DENIS PAPIN, 78000 Trappes",
-          "lat": 48.76544,
-          "lng": 2.000406,
-          "departement": "78",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 3690.872
-            },
-            {
-              "annee": 2023,
-              "mwh": 3524.827
-            },
-            {
-              "annee": 2022,
-              "mwh": 3637.088
-            },
-            {
-              "annee": 2021,
-              "mwh": 3327.435
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "16 RUE GRANGE DAME ROSE",
-          "adresse_complete": "16 RUE GRANGE DAME ROSE, 78000 Vélizy-Villacoublay",
-          "lat": 48.784011,
-          "lng": 2.206552,
-          "departement": "78",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 639.536
-            },
-            {
-              "annee": 2024,
-              "mwh": 1190.804
-            },
-            {
-              "annee": 2023,
-              "mwh": 702.988
-            },
-            {
-              "annee": 2023,
-              "mwh": 984.552
-            },
-            {
-              "annee": 2023,
-              "mwh": 197.502
-            },
-            {
-              "annee": 2022,
-              "mwh": 739.04
-            },
-            {
-              "annee": 2022,
-              "mwh": 883.816
-            },
-            {
-              "annee": 2022,
-              "mwh": 149.86
-            },
-            {
-              "annee": 2021,
-              "mwh": 813.634
-            },
-            {
-              "annee": 2021,
-              "mwh": 207.377
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "6 RUE NIEUPORT",
-          "adresse_complete": "6 RUE NIEUPORT, 78000 Vélizy-Villacoublay",
-          "lat": 48.78258,
-          "lng": 2.208385,
-          "departement": "78",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 1256.987
-            },
-            {
-              "annee": 2023,
-              "mwh": 1575.717
-            },
-            {
-              "annee": 2022,
-              "mwh": 1690.289
-            },
-            {
-              "annee": 2021,
-              "mwh": 1724.782
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "1 RUE JEAN PIERRE TIMBAUD",
-          "adresse_complete": "1 RUE JEAN PIERRE TIMBAUD, 78000 Montigny-le-Bretonneux",
-          "lat": 48.794019,
-          "lng": 2.036028,
-          "departement": "78",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 23730.243
-            },
-            {
-              "annee": 2023,
-              "mwh": 22786.841
-            },
-            {
-              "annee": 2022,
-              "mwh": 21655.131
-            },
-            {
-              "annee": 2021,
-              "mwh": 20963.953
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "4 RUE GUSTAVE EIFFEL",
-          "adresse_complete": "4 RUE GUSTAVE EIFFEL, 78000 Andrésy",
-          "lat": 48.972885,
-          "lng": 2.042941,
-          "departement": "78",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 5819.191
-            },
-            {
-              "annee": 2023,
-              "mwh": 5844.096
-            },
-            {
-              "annee": 2022,
-              "mwh": 5325.454
-            },
-            {
-              "annee": 2021,
-              "mwh": 4552.728
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "45 AVENUE DE L EUROPE",
-          "adresse_complete": "45 AVENUE DE L EUROPE, 78000 Vélizy-Villacoublay",
-          "lat": 48.778412,
-          "lng": 2.214759,
-          "departement": "78",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 9.395
-            },
-            {
-              "annee": 2023,
-              "mwh": 241.632
-            },
-            {
-              "annee": 2022,
-              "mwh": 467.769
-            },
-            {
-              "annee": 2021,
-              "mwh": 542.125
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "16 AVENUE DE L EUROPE",
-          "adresse_complete": "16 AVENUE DE L EUROPE, 78000 Vélizy-Villacoublay",
-          "lat": 48.780441,
-          "lng": 2.217251,
-          "departement": "78",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 17248.804
-            },
-            {
-              "annee": 2023,
-              "mwh": 15108.333
-            },
-            {
-              "annee": 2022,
-              "mwh": 13416.385
-            },
-            {
-              "annee": 2021,
-              "mwh": 12764.563
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
-      "code": "69",
-      "lat": 45.745654,
-      "lng": 4.872661142857142,
-      "total_mwh": 32802.177,
-      "count": 7,
-      "datacenters": [
-        {
-          "nom": "1 RUE DES VERGERS",
-          "adresse_complete": "1 RUE DES VERGERS, 69000 Limonest",
-          "lat": 45.806882,
-          "lng": 4.771541,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 5865.35
-            },
-            {
-              "annee": 2023,
-              "mwh": 5744.213
-            },
-            {
-              "annee": 2022,
-              "mwh": 6007.404
-            },
-            {
-              "annee": 2021,
-              "mwh": 6004.169
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "131 AVENUE FELIX FAURE",
-          "adresse_complete": "131 AVENUE FELIX FAURE, 69000 Lyon",
-          "lat": 45.754566,
-          "lng": 4.863399,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 12717.25
-            },
-            {
-              "annee": 2023,
-              "mwh": 14232.098
-            },
-            {
-              "annee": 2022,
-              "mwh": 16455.346
-            },
-            {
-              "annee": 2021,
-              "mwh": 17976.58
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "15 RUE MAZENOD",
-          "adresse_complete": "15 RUE MAZENOD, 69000 Lyon",
-          "lat": 45.758604,
-          "lng": 4.843057,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 5133.177
-            },
-            {
-              "annee": 2023,
-              "mwh": 5742.099
-            },
-            {
-              "annee": 2022,
-              "mwh": 6960.26
-            },
-            {
-              "annee": 2021,
-              "mwh": 7533.864
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "45 RUE FRANCIS DE PRESSENSE",
-          "adresse_complete": "45 RUE FRANCIS DE PRESSENSE, 69000 Villeurbanne",
-          "lat": 45.771902,
-          "lng": 4.871656,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 2681.57
-            },
-            {
-              "annee": 2024,
-              "mwh": 3.749
-            },
-            {
-              "annee": 2023,
-              "mwh": 1856.151
-            },
-            {
-              "annee": 2023,
-              "mwh": 7.418
-            },
-            {
-              "annee": 2022,
-              "mwh": 1222.775
-            },
-            {
-              "annee": 2022,
-              "mwh": 6.502
-            },
-            {
-              "annee": 2021,
-              "mwh": 925.596
-            },
-            {
-              "annee": 2021,
-              "mwh": 10.649
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "11 RUE DES TEINTURIERS",
-          "adresse_complete": "11 RUE DES TEINTURIERS, 69000 Lyon",
-          "lat": 45.758755,
-          "lng": 4.867531,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 1412.347
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "9 RUE ALEXANDRE GRAMMONT",
-          "adresse_complete": "9 RUE ALEXANDRE GRAMMONT, 69000 Saint-Priest",
-          "lat": 45.68394,
-          "lng": 4.9456,
-          "departement": "69",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2023,
-              "mwh": 2291.306
-            },
-            {
-              "annee": 2022,
-              "mwh": 2269.971
-            },
-            {
-              "annee": 2021,
-              "mwh": 1921.951
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "9 RUE GARIBALDI",
-          "adresse_complete": "9 RUE GARIBALDI, 69000 Saint-Priest",
-          "lat": 45.684929,
-          "lng": 4.945844,
-          "departement": "69",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2023,
-              "mwh": 2701.177
-            },
-            {
-              "annee": 2022,
-              "mwh": 3105.044
-            },
-            {
-              "annee": 2021,
-              "mwh": 2885.332
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
-      "code": "77",
-      "lat": 48.834056,
-      "lng": 2.628062857142857,
-      "total_mwh": 32276.755999999998,
-      "count": 7,
-      "datacenters": [
-        {
-          "nom": "13 MAIL BARTHELEMY THIMONNIER",
-          "adresse_complete": "13 MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
-          "lat": 48.839619,
-          "lng": 2.628419,
-          "departement": "77",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 317.717
-            },
-            {
-              "annee": 2023,
-              "mwh": 613.562
-            },
-            {
-              "annee": 2022,
-              "mwh": 566.61
-            },
-            {
-              "annee": 2021,
-              "mwh": 602.735
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "93 COURS DES PETITES ECURIES",
-          "adresse_complete": "93 COURS DES PETITES ECURIES, 77000 Lognes",
-          "lat": 48.836738,
-          "lng": 2.641437,
-          "departement": "77",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 9039.246
-            },
-            {
-              "annee": 2023,
-              "mwh": 9914.822
-            },
-            {
-              "annee": 2022,
-              "mwh": 10855.919
-            },
-            {
-              "annee": 2021,
-              "mwh": 11325.44
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "91 COURS DES PETITES ECURIES",
-          "adresse_complete": "91 COURS DES PETITES ECURIES, 77000 Lognes",
-          "lat": 48.836741,
-          "lng": 2.640511,
-          "departement": "77",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 5889.128
-            },
-            {
-              "annee": 2023,
-              "mwh": 6872.881
-            },
-            {
-              "annee": 2022,
-              "mwh": 8206.743
-            },
-            {
-              "annee": 2021,
-              "mwh": 8884.378
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "33 RUE DES VIEILLES VIGNES",
-          "adresse_complete": "33 RUE DES VIEILLES VIGNES, 77000 Croissy-Beaubourg",
-          "lat": 48.817333,
-          "lng": 2.641363,
-          "departement": "77",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 6525.413
-            },
-            {
-              "annee": 2023,
-              "mwh": 7992.237
-            },
-            {
-              "annee": 2022,
-              "mwh": 8460.298
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "12 RUE VLADIMIR JANKELEVITCH",
-          "adresse_complete": "12 RUE VLADIMIR JANKELEVITCH, 77000 Émerainville",
-          "lat": 48.829085,
-          "lng": 2.587045,
-          "departement": "77",
-          "code_naf": "62",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 7287.87
-            },
-            {
-              "annee": 2023,
-              "mwh": 7538.944
-            },
-            {
-              "annee": 2022,
-              "mwh": 7557.571
-            },
-            {
-              "annee": 2021,
-              "mwh": 7769.675
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "12 MAIL BARTHELEMY THIMONNIER",
-          "adresse_complete": "12 MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
-          "lat": 48.839567,
-          "lng": 2.628235,
-          "departement": "77",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 425.781
-            },
-            {
-              "annee": 2023,
-              "mwh": 440.703
-            },
-            {
-              "annee": 2021,
-              "mwh": 530.182
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "MAIL BARTHELEMY THIMONNIER",
-          "adresse_complete": "MAIL BARTHELEMY THIMONNIER, 77000 Lognes",
-          "lat": 48.839309,
-          "lng": 2.62943,
-          "departement": "77",
-          "code_naf": "63",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 2791.601
-            },
-            {
-              "annee": 2023,
-              "mwh": 2471.026
-            },
-            {
-              "annee": 2022,
-              "mwh": 1905.064
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
       "code": "13",
-      "lat": 43.411103000000004,
-      "lng": 5.3581102000000005,
-      "total_mwh": 23506.659999999996,
-      "count": 5,
+      "lat": 43.378592125,
+      "lng": 5.359614375,
+      "total_mwh": 81537.756,
+      "count": 8,
       "datacenters": [
         {
           "nom": "260 RUE LOUIS DE BROGLIE",
@@ -2123,6 +2929,60 @@
           "match_carte": true
         },
         {
+          "nom": "44 RUE BERNARD DU BOIS",
+          "adresse_complete": "44 RUE BERNARD DU BOIS, 13000 Marseille",
+          "lat": 43.301746,
+          "lng": 5.377371,
+          "departement": "13",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 467.954
+            },
+            {
+              "annee": 2023,
+              "mwh": 476.353
+            },
+            {
+              "annee": 2022,
+              "mwh": 453.525
+            },
+            {
+              "annee": 2021,
+              "mwh": 434.617
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "70 CHEMIN DU PASSET",
+          "adresse_complete": "70 CHEMIN DU PASSET, 13000 Marseille",
+          "lat": 43.3611,
+          "lng": 5.335642,
+          "departement": "13",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 16815.285
+            },
+            {
+              "annee": 2023,
+              "mwh": 15195.896
+            },
+            {
+              "annee": 2022,
+              "mwh": 13195.822
+            },
+            {
+              "annee": 2021,
+              "mwh": 11360.992
+            }
+          ],
+          "match_carte": true
+        },
+        {
           "nom": "2 RUE JULES FERRY",
           "adresse_complete": "2 RUE JULES FERRY, 13000 Marseille",
           "lat": 43.303101,
@@ -2171,15 +3031,679 @@
             }
           ],
           "match_carte": true
+        },
+        {
+          "nom": "40 AVENUE ROGER SALENGRO",
+          "adresse_complete": "40 AVENUE ROGER SALENGRO, 13000 Marseille",
+          "lat": 43.310376,
+          "lng": 5.373351,
+          "departement": "13",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 40747.857
+            },
+            {
+              "annee": 2023,
+              "mwh": 42372.204
+            },
+            {
+              "annee": 2022,
+              "mwh": 46265.181
+            },
+            {
+              "annee": 2021,
+              "mwh": 47649.928
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "69",
+      "lat": 45.74412755555555,
+      "lng": 4.870761777777777,
+      "total_mwh": 71591.45399999998,
+      "count": 9,
+      "datacenters": [
+        {
+          "nom": "1 RUE DES VERGERS",
+          "adresse_complete": "1 RUE DES VERGERS, 69000 Limonest",
+          "lat": 45.806882,
+          "lng": 4.771541,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5865.35
+            },
+            {
+              "annee": 2023,
+              "mwh": 5744.213
+            },
+            {
+              "annee": 2022,
+              "mwh": 6007.404
+            },
+            {
+              "annee": 2021,
+              "mwh": 6004.169
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "131 AVENUE FELIX FAURE",
+          "adresse_complete": "131 AVENUE FELIX FAURE, 69000 Lyon",
+          "lat": 45.754566,
+          "lng": 4.863399,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 12717.25
+            },
+            {
+              "annee": 2023,
+              "mwh": 14232.098
+            },
+            {
+              "annee": 2022,
+              "mwh": 16455.346
+            },
+            {
+              "annee": 2021,
+              "mwh": 17976.58
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "131 T AVENUE FELIX FAURE",
+          "adresse_complete": "131 T AVENUE FELIX FAURE, 69000 Lyon",
+          "lat": 45.75433,
+          "lng": 4.864898,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1094.785
+            },
+            {
+              "annee": 2023,
+              "mwh": 1038.698
+            },
+            {
+              "annee": 2022,
+              "mwh": 1091.639
+            },
+            {
+              "annee": 2021,
+              "mwh": 1109.376
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "15 RUE MAZENOD",
+          "adresse_complete": "15 RUE MAZENOD, 69000 Lyon",
+          "lat": 45.758604,
+          "lng": 4.843057,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5133.177
+            },
+            {
+              "annee": 2023,
+              "mwh": 5742.099
+            },
+            {
+              "annee": 2022,
+              "mwh": 6960.26
+            },
+            {
+              "annee": 2021,
+              "mwh": 7533.864
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "45 RUE FRANCIS DE PRESSENSE",
+          "adresse_complete": "45 RUE FRANCIS DE PRESSENSE, 69000 Villeurbanne",
+          "lat": 45.771902,
+          "lng": 4.871656,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2681.57
+            },
+            {
+              "annee": 2024,
+              "mwh": 3.749
+            },
+            {
+              "annee": 2023,
+              "mwh": 1856.151
+            },
+            {
+              "annee": 2023,
+              "mwh": 7.418
+            },
+            {
+              "annee": 2022,
+              "mwh": 1222.775
+            },
+            {
+              "annee": 2022,
+              "mwh": 6.502
+            },
+            {
+              "annee": 2021,
+              "mwh": 925.596
+            },
+            {
+              "annee": 2021,
+              "mwh": 10.649
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "8 RUE GEORGES MARRANE",
+          "adresse_complete": "8 RUE GEORGES MARRANE, 69000 Vénissieux",
+          "lat": 45.72324,
+          "lng": 4.86333,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 37694.492
+            },
+            {
+              "annee": 2023,
+              "mwh": 37664.816
+            },
+            {
+              "annee": 2022,
+              "mwh": 37803.82
+            },
+            {
+              "annee": 2021,
+              "mwh": 37444.254
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "11 RUE DES TEINTURIERS",
+          "adresse_complete": "11 RUE DES TEINTURIERS, 69000 Lyon",
+          "lat": 45.758755,
+          "lng": 4.867531,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1412.347
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "9 RUE ALEXANDRE GRAMMONT",
+          "adresse_complete": "9 RUE ALEXANDRE GRAMMONT, 69000 Saint-Priest",
+          "lat": 45.68394,
+          "lng": 4.9456,
+          "departement": "69",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 2291.306
+            },
+            {
+              "annee": 2022,
+              "mwh": 2269.971
+            },
+            {
+              "annee": 2021,
+              "mwh": 1921.951
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "9 RUE GARIBALDI",
+          "adresse_complete": "9 RUE GARIBALDI, 69000 Saint-Priest",
+          "lat": 45.684929,
+          "lng": 4.945844,
+          "departement": "69",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2023,
+              "mwh": 2701.177
+            },
+            {
+              "annee": 2022,
+              "mwh": 3105.044
+            },
+            {
+              "annee": 2021,
+              "mwh": 2885.332
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "91",
+      "lat": 48.747361,
+      "lng": 2.349929,
+      "total_mwh": 22542.15,
+      "count": 2,
+      "datacenters": [
+        {
+          "nom": "127 RUE DE PARIS",
+          "adresse_complete": "127 RUE DE PARIS, 91000 Bièvres",
+          "lat": 48.769051,
+          "lng": 2.229295,
+          "departement": "91",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 16663.678
+            },
+            {
+              "annee": 2023,
+              "mwh": 17439.371
+            },
+            {
+              "annee": 2022,
+              "mwh": 16539.573
+            },
+            {
+              "annee": 2021,
+              "mwh": 15930.227
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "10 RUE DES INVESTISSEURS",
+          "adresse_complete": "10 RUE DES INVESTISSEURS, 91000 Crosne",
+          "lat": 48.725671,
+          "lng": 2.470563,
+          "departement": "91",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5878.472
+            },
+            {
+              "annee": 2022,
+              "mwh": 5827.474
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "33",
+      "lat": 44.79881866666667,
+      "lng": -0.541332,
+      "total_mwh": 19266.272,
+      "count": 3,
+      "datacenters": [
+        {
+          "nom": "12 ALLEE DES VIOLETTES",
+          "adresse_complete": "12 ALLEE DES VIOLETTES, 33000 Cadaujac",
+          "lat": 44.724245,
+          "lng": -0.530099,
+          "departement": "33",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 1857.713
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE DU DOCTEUR GABRIEL PERY",
+          "adresse_complete": "RUE DU DOCTEUR GABRIEL PERY, 33000 Bordeaux",
+          "lat": 44.890698,
+          "lng": -0.556767,
+          "departement": "33",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 16889.718
+            },
+            {
+              "annee": 2023,
+              "mwh": 17544.438
+            },
+            {
+              "annee": 2022,
+              "mwh": 18412.625
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "84 AVENUE MIRIEU DE LABARRE",
+          "adresse_complete": "84 AVENUE MIRIEU DE LABARRE, 33000 Villenave-d'Ornon",
+          "lat": 44.781513,
+          "lng": -0.53713,
+          "departement": "33",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 518.841
+            },
+            {
+              "annee": 2023,
+              "mwh": 484.767
+            },
+            {
+              "annee": 2022,
+              "mwh": 465.249
+            },
+            {
+              "annee": 2021,
+              "mwh": 381.398
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "59",
+      "lat": 50.58678514285714,
+      "lng": 3.1366814285714284,
+      "total_mwh": 18673.981,
+      "count": 7,
+      "datacenters": [
+        {
+          "nom": "35 RUE GAMBETTA",
+          "adresse_complete": "35 RUE GAMBETTA, 59000 Lambersart",
+          "lat": 50.648526,
+          "lng": 3.039054,
+          "departement": "59",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1566.74
+            },
+            {
+              "annee": 2023,
+              "mwh": 1623.427
+            },
+            {
+              "annee": 2022,
+              "mwh": 1535.187
+            },
+            {
+              "annee": 2021,
+              "mwh": 1602.987
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "21 AVENUE DE LA CREATIVITE",
+          "adresse_complete": "21 AVENUE DE LA CREATIVITE, 59000 Villeneuve-d'Ascq",
+          "lat": 50.639943,
+          "lng": 3.146759,
+          "departement": "59",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 439.216
+            },
+            {
+              "annee": 2023,
+              "mwh": 479.471
+            },
+            {
+              "annee": 2021,
+              "mwh": 534.794
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE LOUIS DUPIED",
+          "adresse_complete": "RUE LOUIS DUPIED, 59000 Lille",
+          "lat": 50.627532,
+          "lng": 3.077737,
+          "departement": "59",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 4136.135
+            },
+            {
+              "annee": 2023,
+              "mwh": 4779.941
+            },
+            {
+              "annee": 2022,
+              "mwh": 5226.336
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "17 RUE PAUL LANGEVIN",
+          "adresse_complete": "17 RUE PAUL LANGEVIN, 59000 Lezennes",
+          "lat": 50.614554,
+          "lng": 3.104331,
+          "departement": "59",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2307.811
+            },
+            {
+              "annee": 2023,
+              "mwh": 2162.804
+            },
+            {
+              "annee": 2022,
+              "mwh": 1848.011
+            },
+            {
+              "annee": 2021,
+              "mwh": 1885.942
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "1 RUE DE LONDRES",
+          "adresse_complete": "1 RUE DE LONDRES, 59000 Loos",
+          "lat": 50.617512,
+          "lng": 3.023565,
+          "departement": "59",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 7599.063
+            },
+            {
+              "annee": 2023,
+              "mwh": 7842.868
+            },
+            {
+              "annee": 2022,
+              "mwh": 7571.22
+            },
+            {
+              "annee": 2021,
+              "mwh": 8110.598
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "195 AVENUE GEORGES DUPONT",
+          "adresse_complete": "195 AVENUE GEORGES DUPONT, 59000 Loos",
+          "lat": 50.613713,
+          "lng": 3.021663,
+          "departement": "59",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 1956.25
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "70 RUE JEAN JAURES",
+          "adresse_complete": "70 RUE JEAN JAURES, 59000 Marly",
+          "lat": 50.345716,
+          "lng": 3.543661,
+          "departement": "59",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 668.766
+            },
+            {
+              "annee": 2023,
+              "mwh": 650.332
+            },
+            {
+              "annee": 2021,
+              "mwh": 669.522
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "38",
+      "lat": 45.17622866666667,
+      "lng": 5.757407000000001,
+      "total_mwh": 18070.998,
+      "count": 3,
+      "datacenters": [
+        {
+          "nom": "RUE GEORGES PEREC",
+          "adresse_complete": "RUE GEORGES PEREC, 38000 Saint-Martin-d'Hères",
+          "lat": 45.186567,
+          "lng": 5.766631,
+          "departement": "38",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 2357.646
+            },
+            {
+              "annee": 2023,
+              "mwh": 2343.375
+            },
+            {
+              "annee": 2022,
+              "mwh": 2414.498
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 AVENUE RAYMOND CHANAS",
+          "adresse_complete": "5 AVENUE RAYMOND CHANAS, 38000 Eybens",
+          "lat": 45.155848,
+          "lng": 5.739099,
+          "departement": "38",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 15608.019
+            },
+            {
+              "annee": 2023,
+              "mwh": 17318.536
+            },
+            {
+              "annee": 2022,
+              "mwh": 19409.822
+            },
+            {
+              "annee": 2021,
+              "mwh": 23200.16
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "15 RUE GEORGES PEREC",
+          "adresse_complete": "15 RUE GEORGES PEREC, 38000 Saint-Martin-d'Hères",
+          "lat": 45.186271,
+          "lng": 5.766491,
+          "departement": "38",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 105.333
+            },
+            {
+              "annee": 2023,
+              "mwh": 118.286
+            },
+            {
+              "annee": 2022,
+              "mwh": 128.795
+            },
+            {
+              "annee": 2021,
+              "mwh": 128.154
+            }
+          ],
+          "match_carte": true
         }
       ]
     },
     {
       "code": "44",
-      "lat": 47.2335448,
-      "lng": -1.5835232,
-      "total_mwh": 13930.883000000002,
-      "count": 5,
+      "lat": 47.22700014285714,
+      "lng": -1.5874264285714286,
+      "total_mwh": 15756.397,
+      "count": 7,
       "datacenters": [
         {
           "nom": "32 BOULEVARD VICTOR HUGO",
@@ -2204,6 +3728,56 @@
             {
               "annee": 2021,
               "mwh": 1726.679
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "13 AVENUE JACQUES CARTIER",
+          "adresse_complete": "13 AVENUE JACQUES CARTIER, 44000 Saint-Herblain",
+          "lat": 47.224794,
+          "lng": -1.636266,
+          "departement": "44",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 57.42
+            },
+            {
+              "annee": 2023,
+              "mwh": 67.593
+            },
+            {
+              "annee": 2022,
+              "mwh": 492.333
+            },
+            {
+              "annee": 2021,
+              "mwh": 752.91
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE FELIX EBOUE",
+          "adresse_complete": "RUE FELIX EBOUE, 44000 Rezé",
+          "lat": 47.196483,
+          "lng": -1.558103,
+          "departement": "44",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1768.094
+            },
+            {
+              "annee": 2023,
+              "mwh": 1786.484
+            },
+            {
+              "annee": 2022,
+              "mwh": 1868.266
             }
           ],
           "match_carte": true
@@ -2307,146 +3881,174 @@
       ]
     },
     {
-      "code": "59",
-      "lat": 50.581663999999996,
-      "lng": 3.155534166666667,
-      "total_mwh": 11074.918,
-      "count": 6,
+      "code": "35",
+      "lat": 48.1059416,
+      "lng": -1.6218423999999998,
+      "total_mwh": 13713.667000000001,
+      "count": 5,
       "datacenters": [
         {
-          "nom": "35 RUE GAMBETTA",
-          "adresse_complete": "35 RUE GAMBETTA, 59000 Lambersart",
-          "lat": 50.648526,
-          "lng": 3.039054,
-          "departement": "59",
+          "nom": "7 ALLEE DE BRAY",
+          "adresse_complete": "7 ALLEE DE BRAY, 35000 Cesson-Sévigné",
+          "lat": 48.110197,
+          "lng": -1.613757,
+          "departement": "35",
           "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 1566.74
+              "mwh": 5070.283
             },
             {
               "annee": 2023,
-              "mwh": 1623.427
+              "mwh": 5410.477
             },
             {
               "annee": 2022,
-              "mwh": 1535.187
+              "mwh": 5609.121
             },
             {
               "annee": 2021,
-              "mwh": 1602.987
+              "mwh": 5551.512
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "21 AVENUE DE LA CREATIVITE",
-          "adresse_complete": "21 AVENUE DE LA CREATIVITE, 59000 Villeneuve-d'Ascq",
-          "lat": 50.639943,
-          "lng": 3.146759,
-          "departement": "59",
+          "nom": "2 RUE DU CLOS COURTEL",
+          "adresse_complete": "2 RUE DU CLOS COURTEL, 35000 Cesson-Sévigné",
+          "lat": 48.123584,
+          "lng": -1.628033,
+          "departement": "35",
           "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 439.216
+              "mwh": 706.878
             },
             {
               "annee": 2023,
-              "mwh": 479.471
+              "mwh": 645.983
+            },
+            {
+              "annee": 2022,
+              "mwh": 696.747
             },
             {
               "annee": 2021,
-              "mwh": 534.794
+              "mwh": 731.468
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "RUE LOUIS DUPIED",
-          "adresse_complete": "RUE LOUIS DUPIED, 59000 Lille",
-          "lat": 50.627532,
-          "lng": 3.077737,
-          "departement": "59",
+          "nom": "RUE DU CLOS COURTEL",
+          "adresse_complete": "RUE DU CLOS COURTEL, 35000 Cesson-Sévigné",
+          "lat": 48.123584,
+          "lng": -1.628033,
+          "departement": "35",
           "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 4136.135
+              "mwh": 2417.284
             },
             {
               "annee": 2023,
-              "mwh": 4779.941
+              "mwh": 2469.895
             },
             {
               "annee": 2022,
-              "mwh": 5226.336
+              "mwh": 2599.469
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "17 RUE PAUL LANGEVIN",
-          "adresse_complete": "17 RUE PAUL LANGEVIN, 59000 Lezennes",
-          "lat": 50.614554,
-          "lng": 3.104331,
-          "departement": "59",
+          "nom": "RUE BLAISE PASCAL",
+          "adresse_complete": "RUE BLAISE PASCAL, 35000 Châteaubourg",
+          "lat": 48.101959,
+          "lng": -1.402933,
+          "departement": "35",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 5412.182
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "2 ROUTE DE CHAVAGNE",
+          "adresse_complete": "2 ROUTE DE CHAVAGNE, 35000 Mordelles",
+          "lat": 48.070384,
+          "lng": -1.836456,
+          "departement": "35",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 2307.811
+              "mwh": 107.04
             },
             {
               "annee": 2023,
-              "mwh": 2162.804
+              "mwh": 165.377
             },
             {
               "annee": 2022,
-              "mwh": 1848.011
+              "mwh": 191.622
             },
             {
               "annee": 2021,
-              "mwh": 1885.942
+              "mwh": 310.576
             }
           ],
           "match_carte": true
-        },
+        }
+      ]
+    },
+    {
+      "code": "54",
+      "lat": 48.652508,
+      "lng": 6.132042,
+      "total_mwh": 11911.996,
+      "count": 2,
+      "datacenters": [
         {
-          "nom": "195 AVENUE GEORGES DUPONT",
-          "adresse_complete": "195 AVENUE GEORGES DUPONT, 59000 Loos",
-          "lat": 50.613713,
-          "lng": 3.021663,
-          "departement": "59",
+          "nom": "4 RUE DU BOIS DE LA SIVRITE",
+          "adresse_complete": "4 RUE DU BOIS DE LA SIVRITE, 54000 Vandœuvre-lès-Nancy",
+          "lat": 48.652508,
+          "lng": 6.132042,
+          "departement": "54",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2021,
-              "mwh": 1956.25
+              "mwh": 6153.203
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "70 RUE JEAN JAURES",
-          "adresse_complete": "70 RUE JEAN JAURES, 59000 Marly",
-          "lat": 50.345716,
-          "lng": 3.543661,
-          "departement": "59",
+          "nom": "4 RUE DU BOIS DE LA SIVRITE",
+          "adresse_complete": "4 RUE DU BOIS DE LA SIVRITE, 54000 Vandoeuvre-lès-Nancy",
+          "lat": 48.652508,
+          "lng": 6.132042,
+          "departement": "54",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 668.766
+              "mwh": 5758.793
             },
             {
               "annee": 2023,
-              "mwh": 650.332
+              "mwh": 5856.141
             },
             {
-              "annee": 2021,
-              "mwh": 669.522
+              "annee": 2022,
+              "mwh": 6200.524
             }
           ],
           "match_carte": true
@@ -2455,10 +4057,10 @@
     },
     {
       "code": "06",
-      "lat": 43.626961,
-      "lng": 7.0703304000000005,
-      "total_mwh": 9219.871,
-      "count": 5,
+      "lat": 43.6317855,
+      "lng": 7.083400833333333,
+      "total_mwh": 9949.043999999998,
+      "count": 6,
       "datacenters": [
         {
           "nom": "49 RUE EMILE HUGUES",
@@ -2479,6 +4081,29 @@
             {
               "annee": 2021,
               "mwh": 3883.579
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE THOMAS EDISON",
+          "adresse_complete": "RUE THOMAS EDISON, 06000 Cagnes-sur-Mer",
+          "lat": 43.655908,
+          "lng": 7.148753,
+          "departement": "06",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 729.173
+            },
+            {
+              "annee": 2023,
+              "mwh": 849.684
+            },
+            {
+              "annee": 2022,
+              "mwh": 892.564
             }
           ],
           "match_carte": true
@@ -2582,90 +4207,50 @@
       ]
     },
     {
-      "code": "91",
-      "lat": 48.725671,
-      "lng": 2.470563,
-      "total_mwh": 5878.472,
-      "count": 1,
+      "code": "95",
+      "lat": 48.9889395,
+      "lng": 2.1787845,
+      "total_mwh": 7459.432,
+      "count": 2,
       "datacenters": [
         {
-          "nom": "10 RUE DES INVESTISSEURS",
-          "adresse_complete": "10 RUE DES INVESTISSEURS, 91000 Crosne",
-          "lat": 48.725671,
-          "lng": 2.470563,
-          "departement": "91",
+          "nom": "69 RUE JEAN JAURES",
+          "adresse_complete": "69 RUE JEAN JAURES, 95000 Bezons",
+          "lat": 48.925116,
+          "lng": 2.221327,
+          "departement": "95",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 5878.472
-            },
-            {
-              "annee": 2022,
-              "mwh": 5827.474
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
-      "code": "35",
-      "lat": 48.090290499999995,
-      "lng": -1.7251065,
-      "total_mwh": 5177.323,
-      "count": 2,
-      "datacenters": [
-        {
-          "nom": "7 ALLEE DE BRAY",
-          "adresse_complete": "7 ALLEE DE BRAY, 35000 Cesson-Sévigné",
-          "lat": 48.110197,
-          "lng": -1.613757,
-          "departement": "35",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 5070.283
+              "mwh": 134.42
             },
             {
               "annee": 2023,
-              "mwh": 5410.477
+              "mwh": 141.632
             },
             {
               "annee": 2022,
-              "mwh": 5609.121
+              "mwh": 153.533
             },
             {
               "annee": 2021,
-              "mwh": 5551.512
+              "mwh": 174.579
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "2 ROUTE DE CHAVAGNE",
-          "adresse_complete": "2 ROUTE DE CHAVAGNE, 35000 Mordelles",
-          "lat": 48.070384,
-          "lng": -1.836456,
-          "departement": "35",
-          "code_naf": "62",
+          "nom": "25 AVENUE DE L EGUILLETTE",
+          "adresse_complete": "25 AVENUE DE L EGUILLETTE, 95000 Saint-Ouen-l'Aumône",
+          "lat": 49.052763,
+          "lng": 2.136242,
+          "departement": "95",
+          "code_naf": "63",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 107.04
-            },
-            {
-              "annee": 2023,
-              "mwh": 165.377
-            },
-            {
-              "annee": 2022,
-              "mwh": 191.622
-            },
-            {
-              "annee": 2021,
-              "mwh": 310.576
+              "mwh": 7325.012
             }
           ],
           "match_carte": true
@@ -2674,10 +4259,10 @@
     },
     {
       "code": "31",
-      "lat": 43.630019,
-      "lng": 1.4809700000000001,
-      "total_mwh": 4862.0380000000005,
-      "count": 2,
+      "lat": 43.6183475,
+      "lng": 1.439054,
+      "total_mwh": 5220.223000000001,
+      "count": 4,
       "datacenters": [
         {
           "nom": "10 RUE DES FRERES PEUGEOT",
@@ -2717,6 +4302,44 @@
             {
               "annee": 2021,
               "mwh": 1977.277
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "10 AVENUE JAMES CLERK MAXWELL",
+          "adresse_complete": "10 AVENUE JAMES CLERK MAXWELL, 31000 Toulouse",
+          "lat": 43.59196,
+          "lng": 1.370677,
+          "departement": "31",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 293.827
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "5 RUE HUMBERT TOMATIS",
+          "adresse_complete": "5 RUE HUMBERT TOMATIS, 31000 Toulouse",
+          "lat": 43.621392,
+          "lng": 1.423599,
+          "departement": "31",
+          "code_naf": "63",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 64.358
+            },
+            {
+              "annee": 2023,
+              "mwh": 203.941
+            },
+            {
+              "annee": 2022,
+              "mwh": 46.986
             }
           ],
           "match_carte": true
@@ -2858,11 +4481,34 @@
     },
     {
       "code": "63",
-      "lat": 45.757041,
-      "lng": 3.134492,
-      "total_mwh": 3063.539,
-      "count": 1,
+      "lat": 45.756988,
+      "lng": 3.1338995,
+      "total_mwh": 3132.05,
+      "count": 2,
       "datacenters": [
+        {
+          "nom": "RUE DES SAUZES",
+          "adresse_complete": "RUE DES SAUZES, 63000 Aubière",
+          "lat": 45.756935,
+          "lng": 3.133307,
+          "departement": "63",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 68.511
+            },
+            {
+              "annee": 2023,
+              "mwh": 84.548
+            },
+            {
+              "annee": 2022,
+              "mwh": 103.841
+            }
+          ],
+          "match_carte": true
+        },
         {
           "nom": "42 RUE DES SAUZES",
           "adresse_complete": "42 RUE DES SAUZES, 63000 Aubière",
@@ -2885,109 +4531,104 @@
       ]
     },
     {
-      "code": "38",
-      "lat": 45.186419,
-      "lng": 5.766561,
-      "total_mwh": 2462.9790000000003,
-      "count": 2,
+      "code": "21",
+      "lat": 47.3093515,
+      "lng": 5.042827,
+      "total_mwh": 2247.549,
+      "count": 4,
       "datacenters": [
         {
-          "nom": "RUE GEORGES PEREC",
-          "adresse_complete": "RUE GEORGES PEREC, 38000 Saint-Martin-d'Hères",
-          "lat": 45.186567,
-          "lng": 5.766631,
-          "departement": "38",
+          "nom": "41 QUAI GAUTHEY",
+          "adresse_complete": "41 QUAI GAUTHEY, 21000 Dijon",
+          "lat": 47.3088,
+          "lng": 5.029642,
+          "departement": "21",
           "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 2357.646
+              "mwh": 173.444
             },
             {
               "annee": 2023,
-              "mwh": 2343.375
+              "mwh": 161.743
             },
             {
               "annee": 2022,
-              "mwh": 2414.498
+              "mwh": 174.305
+            },
+            {
+              "annee": 2021,
+              "mwh": 181.224
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "15 RUE GEORGES PEREC",
-          "adresse_complete": "15 RUE GEORGES PEREC, 38000 Saint-Martin-d'Hères",
-          "lat": 45.186271,
-          "lng": 5.766491,
-          "departement": "38",
+          "nom": "33 RUE DE L INGENIEUR BERTIN",
+          "adresse_complete": "33 RUE DE L INGENIEUR BERTIN, 21000 Longvic",
+          "lat": 47.293927,
+          "lng": 5.030672,
+          "departement": "21",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2021,
+              "mwh": 847.544
+            },
+            {
+              "annee": 2021,
+              "mwh": 825.879
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "RUE DE L INGENIEUR BERTIN",
+          "adresse_complete": "RUE DE L INGENIEUR BERTIN, 21000 Longvic",
+          "lat": 47.294211,
+          "lng": 5.033176,
+          "departement": "21",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1182.23
+            },
+            {
+              "annee": 2023,
+              "mwh": 1196.646
+            },
+            {
+              "annee": 2022,
+              "mwh": 1331.445
+            }
+          ],
+          "match_carte": true
+        },
+        {
+          "nom": "24 RUE DE LA REDOUTE",
+          "adresse_complete": "24 RUE DE LA REDOUTE, 21000 Saint-Apollinaire",
+          "lat": 47.340468,
+          "lng": 5.077818,
+          "departement": "21",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 105.333
+              "mwh": 44.331
             },
             {
               "annee": 2023,
-              "mwh": 118.286
+              "mwh": 38.328
             },
             {
               "annee": 2022,
-              "mwh": 128.795
+              "mwh": 57.076
             },
             {
               "annee": 2021,
-              "mwh": 128.154
-            }
-          ],
-          "match_carte": true
-        }
-      ]
-    },
-    {
-      "code": "33",
-      "lat": 44.752879,
-      "lng": -0.5336145,
-      "total_mwh": 2376.554,
-      "count": 2,
-      "datacenters": [
-        {
-          "nom": "12 ALLEE DES VIOLETTES",
-          "adresse_complete": "12 ALLEE DES VIOLETTES, 33000 Cadaujac",
-          "lat": 44.724245,
-          "lng": -0.530099,
-          "departement": "33",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2021,
-              "mwh": 1857.713
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "84 AVENUE MIRIEU DE LABARRE",
-          "adresse_complete": "84 AVENUE MIRIEU DE LABARRE, 33000 Villenave-d'Ornon",
-          "lat": 44.781513,
-          "lng": -0.53713,
-          "departement": "33",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2024,
-              "mwh": 518.841
-            },
-            {
-              "annee": 2023,
-              "mwh": 484.767
-            },
-            {
-              "annee": 2022,
-              "mwh": 465.249
-            },
-            {
-              "annee": 2021,
-              "mwh": 381.398
+              "mwh": 218.261
             }
           ],
           "match_carte": true
@@ -2996,11 +4637,38 @@
     },
     {
       "code": "51",
-      "lat": 49.237099,
-      "lng": 4.063124500000001,
-      "total_mwh": 1928.725,
-      "count": 2,
+      "lat": 49.23672833333333,
+      "lng": 4.063664666666667,
+      "total_mwh": 2091.895,
+      "count": 3,
       "datacenters": [
+        {
+          "nom": "2 RUE EMILE ARQUES",
+          "adresse_complete": "2 RUE EMILE ARQUES, 51000 Reims",
+          "lat": 49.235987,
+          "lng": 4.064745,
+          "departement": "51",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 163.17
+            },
+            {
+              "annee": 2023,
+              "mwh": 107.593
+            },
+            {
+              "annee": 2022,
+              "mwh": 155.862
+            },
+            {
+              "annee": 2021,
+              "mwh": 158.733
+            }
+          ],
+          "match_carte": true
+        },
         {
           "nom": "ALLEE ALBERT CAQUOT",
           "adresse_complete": "ALLEE ALBERT CAQUOT, 51000 Reims",
@@ -3039,6 +4707,42 @@
             {
               "annee": 2022,
               "mwh": 399.572
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "25",
+      "lat": 47.225771,
+      "lng": 5.972513,
+      "total_mwh": 1987.442,
+      "count": 1,
+      "datacenters": [
+        {
+          "nom": "2 RUE ALBERT EINSTEIN",
+          "adresse_complete": "2 RUE ALBERT EINSTEIN, 25000 Besançon",
+          "lat": 47.225771,
+          "lng": 5.972513,
+          "departement": "25",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 1987.442
+            },
+            {
+              "annee": 2023,
+              "mwh": 1867.135
+            },
+            {
+              "annee": 2022,
+              "mwh": 1789.419
+            },
+            {
+              "annee": 2021,
+              "mwh": 1812.496
             }
           ],
           "match_carte": true
@@ -3196,81 +4900,54 @@
       ]
     },
     {
-      "code": "21",
-      "lat": 47.31439833333334,
-      "lng": 5.046043999999999,
-      "total_mwh": 1065.319,
-      "count": 3,
+      "code": "81",
+      "lat": 43.916266,
+      "lng": 2.1196070000000002,
+      "total_mwh": 1300.589,
+      "count": 2,
       "datacenters": [
         {
-          "nom": "41 QUAI GAUTHEY",
-          "adresse_complete": "41 QUAI GAUTHEY, 21000 Dijon",
-          "lat": 47.3088,
-          "lng": 5.029642,
-          "departement": "21",
+          "nom": "3 AVENUE PIERRE GILLES DE GENNES",
+          "adresse_complete": "3 AVENUE PIERRE GILLES DE GENNES, 81000 Albi",
+          "lat": 43.920636,
+          "lng": 2.183425,
+          "departement": "81",
           "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 173.444
+              "mwh": 965.326
             },
             {
               "annee": 2023,
-              "mwh": 161.743
+              "mwh": 976.421
             },
             {
               "annee": 2022,
-              "mwh": 174.305
-            },
-            {
-              "annee": 2021,
-              "mwh": 181.224
+              "mwh": 956.418
             }
           ],
           "match_carte": true
         },
         {
-          "nom": "33 RUE DE L INGENIEUR BERTIN",
-          "adresse_complete": "33 RUE DE L INGENIEUR BERTIN, 21000 Longvic",
-          "lat": 47.293927,
-          "lng": 5.030672,
-          "departement": "21",
-          "code_naf": "61",
-          "historique": [
-            {
-              "annee": 2021,
-              "mwh": 847.544
-            },
-            {
-              "annee": 2021,
-              "mwh": 825.879
-            }
-          ],
-          "match_carte": true
-        },
-        {
-          "nom": "24 RUE DE LA REDOUTE",
-          "adresse_complete": "24 RUE DE LA REDOUTE, 21000 Saint-Apollinaire",
-          "lat": 47.340468,
-          "lng": 5.077818,
-          "departement": "21",
+          "nom": "3 AVENUE DE LA PELATIE",
+          "adresse_complete": "3 AVENUE DE LA PELATIE, 81000 Marssac-sur-Tarn",
+          "lat": 43.911896,
+          "lng": 2.055789,
+          "departement": "81",
           "code_naf": "62",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 44.331
+              "mwh": 335.263
             },
             {
               "annee": 2023,
-              "mwh": 38.328
-            },
-            {
-              "annee": 2022,
-              "mwh": 57.076
+              "mwh": 184.571
             },
             {
               "annee": 2021,
-              "mwh": 218.261
+              "mwh": 112.982
             }
           ],
           "match_carte": true
@@ -3314,6 +4991,34 @@
       ]
     },
     {
+      "code": "42",
+      "lat": 45.441854,
+      "lng": 4.400285,
+      "total_mwh": 503.673,
+      "count": 1,
+      "datacenters": [
+        {
+          "nom": "24 RUE DU PLATEAU DES GLIERES",
+          "adresse_complete": "24 RUE DU PLATEAU DES GLIERES, 42000 Saint-Étienne",
+          "lat": 45.441854,
+          "lng": 4.400285,
+          "departement": "42",
+          "code_naf": "61",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 503.673
+            },
+            {
+              "annee": 2021,
+              "mwh": 514.353
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
       "code": "72",
       "lat": 47.996559,
       "lng": 0.228481,
@@ -3338,31 +5043,23 @@
       ]
     },
     {
-      "code": "81",
-      "lat": 43.911896,
-      "lng": 2.055789,
-      "total_mwh": 335.263,
+      "code": "64",
+      "lat": 43.320896,
+      "lng": -0.310339,
+      "total_mwh": 276.281,
       "count": 1,
       "datacenters": [
         {
-          "nom": "3 AVENUE DE LA PELATIE",
-          "adresse_complete": "3 AVENUE DE LA PELATIE, 81000 Marssac-sur-Tarn",
-          "lat": 43.911896,
-          "lng": 2.055789,
-          "departement": "81",
-          "code_naf": "62",
+          "nom": "20 RUE JOHANNES KEPLER",
+          "adresse_complete": "20 RUE JOHANNES KEPLER, 64000 Pau",
+          "lat": 43.320896,
+          "lng": -0.310339,
+          "departement": "64",
+          "code_naf": "61",
           "historique": [
             {
               "annee": 2024,
-              "mwh": 335.263
-            },
-            {
-              "annee": 2023,
-              "mwh": 184.571
-            },
-            {
-              "annee": 2021,
-              "mwh": 112.982
+              "mwh": 276.281
             }
           ],
           "match_carte": true
@@ -3391,6 +5088,38 @@
             {
               "annee": 2022,
               "mwh": 385.286
+            }
+          ],
+          "match_carte": true
+        }
+      ]
+    },
+    {
+      "code": "17",
+      "lat": 45.928484,
+      "lng": -0.521411,
+      "total_mwh": 161.203,
+      "count": 1,
+      "datacenters": [
+        {
+          "nom": "RUE DE LA PRAIRIE",
+          "adresse_complete": "RUE DE LA PRAIRIE, 17000 Saint-Jean-d'Angély",
+          "lat": 45.928484,
+          "lng": -0.521411,
+          "departement": "17",
+          "code_naf": "62",
+          "historique": [
+            {
+              "annee": 2024,
+              "mwh": 161.203
+            },
+            {
+              "annee": 2023,
+              "mwh": 116.27
+            },
+            {
+              "annee": 2022,
+              "mwh": 119.941
             }
           ],
           "match_carte": true

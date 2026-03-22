@@ -10,6 +10,8 @@ const mapConfig = {
 let departmentLayer;
 let datacenterLayer;
 let currentDepartments = [];
+/** Données précomputées par l'ETL pour recalculer le matching (rayon) dans le navigateur */
+let matchContext = null;
 
 // Mapping NAF codes to labels
 const NAF_LABELS = {
@@ -60,18 +62,114 @@ async function loadFranceMask() {
 }
 
 // ================= CHARGEMENT DES DONNÉES =================
-async function loadDataFromJSON() {
+async function loadDataFromJSON(cacheBust = false) {
+    const url = cacheBust ? `data.json?t=${Date.now()}` : 'data.json';
     try {
-        const response = await fetch('data.json');
+        const response = await fetch(url);
         if (!response.ok) throw new Error("Erreur lors du chargement de data.json");
-        
+
         const data = await response.json();
         return data.departements;
-        
     } catch (error) {
         console.error("Erreur:", error);
         throw new Error("Fichier data.json introuvable. Veuillez exécuter 'python etl.py' d'abord.");
     }
+}
+
+async function loadMatchContext(cacheBust = false) {
+    const url = cacheBust ? `match_context.json?t=${Date.now()}` : "match_context.json";
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error("match_context.json introuvable");
+    }
+    return response.json();
+}
+
+/** Même formule haversine que dans etl.py (distance_m) */
+function distanceMeters(lat1, lon1, lat2, lon2) {
+    const R = 6371000;
+    const toRad = Math.PI / 180;
+    const phi1 = lat1 * toRad;
+    const phi2 = lat2 * toRad;
+    const dphi = (lat2 - lat1) * toRad;
+    const dlambda = (lon2 - lon1) * toRad;
+    const a =
+        Math.sin(dphi / 2) ** 2 +
+        Math.cos(phi1) * Math.cos(phi2) * Math.sin(dlambda / 2) ** 2;
+    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/**
+ * Reproduit les étapes 4–5 de transform_data (etl.py) pour un rayon donné.
+ * @returns {Array} liste départements au même format que dans data.json
+ */
+function buildDepartementsFromMatchContext(ctx, rayonM) {
+    const carte = ctx.carte_coords || [];
+    const datacenters = [];
+
+    for (const data of ctx.addresses || []) {
+        const lat = parseFloat(data.lat);
+        const lng = parseFloat(data.lng);
+        if (Number.isNaN(lat) || Number.isNaN(lng)) continue;
+
+        let matchFound = false;
+        for (const p of carte) {
+            if (distanceMeters(lat, lng, p.lat, p.lng) <= rayonM) {
+                matchFound = true;
+                break;
+            }
+        }
+        if (!matchFound) continue;
+
+        const historique = [...(data.historique || [])].sort((a, b) => b.annee - a.annee);
+        const deptFinal = data.code_departement || "00";
+
+        datacenters.push({
+            nom: data.adresse,
+            adresse_complete: `${data.adresse}, ${data.code_postal} ${data.commune}`,
+            lat: Math.round(lat * 1e6) / 1e6,
+            lng: Math.round(lng * 1e6) / 1e6,
+            departement: deptFinal,
+            code_naf: data.code_naf,
+            historique,
+            match_carte: true
+        });
+    }
+
+    const departementsMap = {};
+    for (const dc of datacenters) {
+        const dept = dc.departement;
+        if (!departementsMap[dept]) {
+            departementsMap[dept] = {
+                code: dept,
+                datacenters: [],
+                total_mwh: 0,
+                count: 0
+            };
+        }
+        departementsMap[dept].datacenters.push(dc);
+        departementsMap[dept].count += 1;
+        if (dc.historique.length) {
+            departementsMap[dept].total_mwh += dc.historique[0].mwh;
+        }
+    }
+
+    const departements = Object.values(departementsMap).map((deptData) => {
+        const dcs = deptData.datacenters;
+        const avgLat = dcs.reduce((s, d) => s + d.lat, 0) / dcs.length;
+        const avgLng = dcs.reduce((s, d) => s + d.lng, 0) / dcs.length;
+        return {
+            code: deptData.code,
+            lat: avgLat,
+            lng: avgLng,
+            total_mwh: deptData.total_mwh,
+            count: deptData.count,
+            datacenters: dcs
+        };
+    });
+
+    departements.sort((a, b) => b.total_mwh - a.total_mwh);
+    return departements;
 }
 
 // ================= TRANSFORMATION DES DONNÉES =================
@@ -180,23 +278,69 @@ document.getElementById('close-sidebar')
     );
 
 // ================= INIT =================
+function applyDepartementsData(departements) {
+    currentDepartments = transformDepartments(departements);
+    document.getElementById('back-btn').classList.add('hidden');
+    datacenterLayer.clearLayers();
+    map.removeLayer(datacenterLayer);
+    renderDepartmentMarkers(currentDepartments);
+    const allDCs = currentDepartments.flatMap(d => d.dcs);
+    updateGlobalStats(allDCs);
+    map.setView(mapConfig.center, mapConfig.zoom);
+    document.getElementById('sidebar').classList.add('hidden');
+    document.getElementById('ranking-panel').classList.add('hidden');
+}
+
 async function initDashboard() {
     loadFranceMask();
     updateLoadingState("Chargement des données...");
     try {
-        const departements = await loadDataFromJSON();
-        currentDepartments = transformDepartments(departements);
-        renderDepartmentMarkers(currentDepartments);
-        
-        const allDCs = currentDepartments.flatMap(d => d.dcs);
-        updateGlobalStats(allDCs);
-        
+        const departements = await loadDataFromJSON(false);
+        try {
+            matchContext = await loadMatchContext(false);
+            const defR = matchContext?.filters?.default_rayon_match_m;
+            if (defR != null) {
+                document.getElementById("rayon-input").value = String(defR);
+            }
+        } catch (e) {
+            console.warn(e);
+            matchContext = null;
+        }
+        applyDepartementsData(departements);
     } catch (e) {
         console.error(e);
         updateLoadingState("Erreur");
         alert(e.message);
     }
 }
+
+function applyRayonFromTextbox() {
+    const v = parseInt(document.getElementById("rayon-input").value, 10);
+    if (Number.isNaN(v) || v <= 0) {
+        alert("Entrez un rayon valide en mètres (entier > 0).");
+        return;
+    }
+    if (!matchContext) {
+        alert(
+            "Fichier match_context.json introuvable. Exécutez une fois : python etl.py\n" +
+                "(l'ETL génère data.json et match_context.json.)"
+        );
+        return;
+    }
+    updateLoadingState("Recalcul…");
+    requestAnimationFrame(() => {
+        try {
+            const departements = buildDepartementsFromMatchContext(matchContext, v);
+            applyDepartementsData(departements);
+        } catch (err) {
+            console.error(err);
+            updateLoadingState("Erreur");
+            alert("Erreur lors du recalcul du rayon.");
+        }
+    });
+}
+
+document.getElementById("validate-rayon").addEventListener("click", applyRayonFromTextbox);
 
 // ================= DEPARTMENT SIDEBAR - CORRECTION ICI =================
 function showDepartmentSidebar(dep) {

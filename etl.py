@@ -5,11 +5,13 @@ ETL - Extract Transform Load
 Télécharge les données Enedis, les transforme et les sauvegarde localement
 """
 
+import argparse
 import requests
 import json
 import time
 import csv
 import os
+import sys
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -18,11 +20,13 @@ API_ENEDIS_EXPORT = "https://opendata.enedis.fr/api/explore/v2.1/catalog/dataset
 CSV_FILE = "donnees_enedis_complet.csv"
 API_GEOCODING = "https://api-adresse.data.gouv.fr/search/"
 OUTPUT_FILE = "data.json"
+MATCH_CONTEXT_FILE = "match_context.json"
 
 # Filtres - MODIFICATION: Maintenant on gère plusieurs codes NAF
 CODES_NAF = ["61", "62", "63"]  # Télécommunications (61) et Informatique (63)
 SEUIL_CONSO_MWH = 100
 GEOCODING_DELAY = 0.15
+DEFAULT_RAYON_MATCH_METRES = 200
 
 # ================= COULEURS POUR LOGS =================
 class Colors:
@@ -245,8 +249,42 @@ def distance_m(lat1, lon1, lat2, lon2):
     return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
+def _save_match_context_for_frontend(
+    addresses_map: Dict, carte_coords: set, rayon_match_metres: int
+) -> None:
+    """Exporte adresses filtrées + carte pour recalcul du rayon dans le navigateur (sans relancer l'ETL)."""
+    addrs: List[Dict] = []
+    for data in addresses_map.values():
+        addrs.append({
+            "adresse": data["adresse"],
+            "code_postal": data["code_postal"],
+            "commune": data["commune"],
+            "code_departement": data.get("code_departement") or "",
+            "code_naf": data["code_naf"],
+            "lat": data.get("lat"),
+            "lng": data.get("lng"),
+            "historique": list(data["historique"]),
+        })
+    carte_list = [{"lat": lat, "lng": lng} for lat, lng in carte_coords]
+    payload = {
+        "carte_coords": carte_list,
+        "addresses": addrs,
+        "filters": {
+            "codes_naf": list(CODES_NAF),
+            "seuil_mwh": SEUIL_CONSO_MWH,
+            "default_rayon_match_m": rayon_match_metres,
+        },
+    }
+    try:
+        with open(MATCH_CONTEXT_FILE, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False)
+        log_success(f"Contexte de matching exporté ({MATCH_CONTEXT_FILE})")
+    except Exception as e:
+        log_warning(f"Impossible d'écrire {MATCH_CONTEXT_FILE}: {e}")
+
+
 # ================= TRANSFORM =================
-def transform_data(records: List[Dict]) -> Dict:
+def transform_data(records: List[Dict], rayon_match_metres: int = DEFAULT_RAYON_MATCH_METRES) -> Dict:
     log_step(2, "TRANSFORMATION DES DONNÉES")
 
     addresses_map = {}
@@ -335,13 +373,12 @@ def transform_data(records: List[Dict]) -> Dict:
         log_warning(f"Impossible de lire la carte: {e}")
         carte_coords = set()
 
+    _save_match_context_for_frontend(addresses_map, carte_coords, rayon_match_metres)
 
     # ==========================================================
-    # 4️⃣ MATCH COORDONNÉES PAR PROXIMITÉ (≤ 50m)
+    # 4️⃣ MATCH COORDONNÉES PAR PROXIMITÉ (rayon paramétrable, mètres)
     # ==========================================================
-    log_info("Matching spatial (rayon 100m)...")
-
-    RAYON_MATCH_METRES = 100
+    log_info(f"Matching spatial (rayon {rayon_match_metres}m)...")
 
     datacenters = []
     match_count = 0
@@ -356,7 +393,7 @@ def transform_data(records: List[Dict]) -> Dict:
         match_found = False
 
         for lat_carte, lng_carte in carte_coords:
-            if distance_m(lat, lng, lat_carte, lng_carte) <= RAYON_MATCH_METRES:
+            if distance_m(lat, lng, lat_carte, lng_carte) <= rayon_match_metres:
                 match_found = True
                 break
 
@@ -427,15 +464,15 @@ def transform_data(records: List[Dict]) -> Dict:
             "total_departements": len(departements),
             "filters": {
                 "codes_naf": CODES_NAF,
-                "seuil_mwh": SEUIL_CONSO_MWH
+                "seuil_mwh": SEUIL_CONSO_MWH,
+                "rayon_match_m": rayon_match_metres
             }
         },
         "departements": departements
     }
 
-# ================= enrich csv =================
-import sys
 
+# ================= enrich csv =================
 def enrich_csv_with_geocode(csv_file: str) -> bool:
     """
     Vérifie si latitude / longitude sont vides dans le CSV et les complète via géocodage.
@@ -523,6 +560,7 @@ def enrich_csv_with_geocode(csv_file: str) -> bool:
 
     return True
 
+
 # ================= LOAD =================
 def load_data(data: Dict) -> bool:
     log_step(3, "SAUVEGARDE DES DONNÉES")
@@ -538,8 +576,40 @@ def load_data(data: Dict) -> bool:
         log_error(f"Erreur : {e}")
         return False
 
+
+def regenerate_json_with_rayon(rayon_match_metres: int) -> Optional[Dict]:
+    """
+    Relit le CSV local et régénère data.json avec un nouveau rayon de matching spatial
+    par rapport à la carte des data centers.
+    """
+    if rayon_match_metres <= 0:
+        log_error("Le rayon doit être strictement positif")
+        return None
+    records = extract_enedis_data()
+    if not records:
+        log_error("Aucune donnée source (CSV manquant ou vide)")
+        return None
+    data = transform_data(records, rayon_match_metres=rayon_match_metres)
+    if not load_data(data):
+        return None
+    return data
+
+
 # ================= MAIN =================
 def main():
+    parser = argparse.ArgumentParser(description="ETL Data Centers France")
+    parser.add_argument(
+        "--rayon",
+        type=int,
+        default=DEFAULT_RAYON_MATCH_METRES,
+        metavar="M",
+        help=(
+            "Rayon de matching avec la carte des data centers (mètres). "
+            f"Défaut: {DEFAULT_RAYON_MATCH_METRES}"
+        ),
+    )
+    args = parser.parse_args()
+
     print(f"\n{Colors.BOLD}{'='*60}")
     print(f"  ETL - DATA CENTERS FRANCE")
     print(f"  Source: API Enedis Open Data")
@@ -554,10 +624,10 @@ def main():
         return
 
     # 2️⃣ Enrichissement du CSV avec latitude / longitude manquantes
-    log_step(1.5, "ENRICHISSEMENT DU CSV AVEC LAT/LNG")
-    enriched = enrich_csv_with_geocode(CSV_FILE)
-    if not enriched:
-        log_warning("Enrichissement du CSV échoué ou non nécessaire")
+    #log_step(1.5, "ENRICHISSEMENT DU CSV AVEC LAT/LNG")
+    #enriched = enrich_csv_with_geocode(CSV_FILE)
+    #if not enriched:
+    #    log_warning("Enrichissement du CSV échoué ou non nécessaire")
 
     # 3️⃣ Relecture des données pour transformation
     records = extract_enedis_data()
@@ -566,7 +636,7 @@ def main():
         return
 
     # 4️⃣ Transformation
-    transformed_data = transform_data(records)
+    transformed_data = transform_data(records, rayon_match_metres=args.rayon)
 
     # 5️⃣ Sauvegarde
     success = load_data(transformed_data)
@@ -582,7 +652,10 @@ def main():
     print(f"{'='*60}\n")
     
     if success:
-        log_success("✓ ETL terminé ! Lancez maintenant : python -m http.server 8000")
+        log_success(
+            "✓ ETL terminé ! Lancez : python -m http.server 8000 "
+            "(le rayon se règle sur la page via Valider, sans relancer l'ETL)"
+        )
     else:
         log_error("✗ ETL terminé avec des erreurs")
 
